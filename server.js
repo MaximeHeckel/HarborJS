@@ -2,6 +2,7 @@ var express = require('express');
 var http = require('http');
 var path = require('path');
 var exec = require('ssh-exec');
+var io = require('socket.io').listen(app);
 
 var app = express();
 
@@ -18,5 +19,11 @@ exec('cd ~/Desktop; ls -lh', {
     host: '127.0.0.1'
 }).pipe(process.stdout);
 
+
+io.sockets.on('connection', function(socket){
+  socket.on('sshkey', function(data){
+    console.log(data);
+  });
+});
 
 app.listen(3000)

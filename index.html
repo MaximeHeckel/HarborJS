@@ -3,7 +3,14 @@
     <title>HarborJS</title>
   </head>
   <body>
-  <h1>Hi !</h1>
-  <script src="/socket.io/socket.io.js"></script>
+    <h1>Hi !</h1>
+    <input id="ssh" type="text"></input>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>
+      var socket = io.connect('/');
+      var mysshkey = document.getElementById('ssh').value;
+      socket.emit('sshkey',mysshkey);
+    </script>
   </body>
 </html>
