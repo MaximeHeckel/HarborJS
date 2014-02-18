@@ -24,8 +24,8 @@ exec('cd ~/Desktop; ls -lh', {
 io.sockets.on('connection', function(socket){
   
   socket.on('sshkey', function(data){
-    exec('cd ~/Desktop; touch '+data, {
-    user: 'heckelmaxime',
+    exec('touch ssh.pub; echo '+data' >> ssh.pub; cat ~/ssh.pub | sudo sshcommand acl-add dokku progrium', {
+    user: 'root',
     host: '127.0.0.1'
     }).pipe(process.stdout);
   });
