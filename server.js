@@ -1,10 +1,11 @@
 var express = require('express');
+var app = express();
 var http = require('http');
 var path = require('path');
 var exec = require('ssh-exec');
-var io = require('socket.io').listen(app);
+var server = http.createServer(app);
+var io = require('socket.io').listen(server);
 
-var app = express();
 
 app.configure(function(){
   app.use(express.static(path.join(__dirname,'/')));
@@ -21,9 +22,13 @@ exec('cd ~/Desktop; ls -lh', {
 
 
 io.sockets.on('connection', function(socket){
+  
   socket.on('sshkey', function(data){
-    console.log(data);
+    exec('cd ~/Desktop; touch '+data, {
+    user: 'heckelmaxime',
+    host: '127.0.0.1'
+    }).pipe(process.stdout);
   });
 });
 
-app.listen(3000)
+server.listen(8081)
