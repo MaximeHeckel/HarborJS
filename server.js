@@ -16,12 +16,13 @@ app.get('/', function (req, res) {
 });
 
 io.sockets.on('connection', function(socket){
-  
+
   socket.on('sshkey', function(data){
-    exec('touch ssh.pub; echo '+data+' > ssh.pub; cat ~/ssh.pub | ssh root@localhost \"sudo sshcommand acl-add dokku progrium\"', {
+    exec('touch ssh.pub ; echo '+data+' > ssh.pub; cat ~/ssh.pub | sudo sshcommand acl-add dokku progrium', {
     user: 'root',
-    host: '127.0.0.1'
-    });
+    host: '127.0.0.1',
+    password: 'admin'
+    }).pipe(process.stdout);
   });
 });
 
