@@ -22,8 +22,8 @@
         }
 
         return true;
-
-        function sendkey(){
+      }
+      function sendkey(){
           var socket = io.connect('/');
           var mysshkey = document.getElementById('ssh').value;
           socket.emit('sshkey',mysshkey);
@@ -32,7 +32,6 @@
             document.forms["sshform"].submit();
             document.forms["sshform"].reset();
           }
-        }
       }
     </script>
   </body>
