@@ -4,33 +4,23 @@
   </head>
   <body>
     <h1>Hi !</h1>
-    <form name="sshform">
-      <input id="ssh" type="text" name="sshinput"></input>
-      <input id="sshsub" type="submit" onclick="sendkey()"></input>
-    </form>
+    <input id="ssh" type="text" name="sshinput"></input>
+    <input id="sshsub" type="submit" onclick="sendkey()"></input>
     <script src="/socket.io/socket.io.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script>
-      function testsendkey(){
-
-        var x = document.forms["sshform"]["sshinput"];
-
-        if(x.value == "")
-        {
-          alert('Not allowed');
+      function teststring(mystr){
+        if(mystr.match(/[;|""|'']/)){
+          console.log("Error");
           return false;
         }
-
         return true;
       }
       function sendkey(){
           var socket = io.connect('/');
           var mysshkey = document.getElementById('ssh').value;
-          socket.emit('sshkey',mysshkey);
-          if(testsendkey())
-          {
-            document.forms["sshform"].submit();
-            document.forms["sshform"].reset();
+          if(teststring(mysshkey)){
+            socket.emit('sshkey',mysshkey);
           }
       }
     </script>
