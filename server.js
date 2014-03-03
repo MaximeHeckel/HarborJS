@@ -4,7 +4,7 @@ var http = require('http');
 var path = require('path');
 var exec = require('ssh-exec');
 var server = http.createServer(app);
-var docker = require('docker.io')({ socketPath: false, host: 'http://192.168.2.19', port: '4243'});
+var docker = require('docker.io')({ socketPath: '/var/run/docker.sock' });
 var io = require('socket.io').listen(server);
 
 
