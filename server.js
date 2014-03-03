@@ -4,6 +4,7 @@ var http = require('http');
 var path = require('path');
 var exec = require('ssh-exec');
 var server = http.createServer(app);
+var docker = require('docker.io')({ socketPath: false, host: 'http://192.168.2.19', port: '4243'});
 var io = require('socket.io').listen(server);
 
 
@@ -26,4 +27,11 @@ io.sockets.on('connection', function(socket){
   });
 });
 
-server.listen(8082)
+var options = {}; // all options listed in the REST documentation for Docker are supported.
+
+docker.containers.list(options /* optional*/, function(err, res) {
+    if (err) throw err;
+    console.log("data returned from Docker as JS object: ", res);
+});
+
+server.listen(8082);
