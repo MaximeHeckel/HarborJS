@@ -17,7 +17,7 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right cl-effect-13">
-            <li><a href="dashboard.html">DASHBOARD</a></li>
+            <li><a href="dasboard.html">DASHBOARD</a></li>
             <li><a href="/">SSH-KEY</a></li>
             <li><a href="#">LOGOUT</a></li>
           </ul>
@@ -27,9 +27,7 @@
     <div class="container pt">
       <div class="row mt">	
 			  <div class="col-lg-8 col-lg-offset-2">
-          <textarea id="ssh" type="text" name="sshinput" class="form-control" rows="6" placeholder="Enter your ssh key here"></textarea>
-          <br/>
-          <input id="sshsub"  class="btn btn-success" type="submit" onclick="sendkey()"></input>
+          <div id=containerlist></div>
         </div>
       </div>
     </div>
@@ -42,20 +40,9 @@
           console.log(data[0].Command);
           console.log(data[0].Image);
           console.log(data[0].Status);
+          $('<div id="container-'+data[0].Id+' class="panel panel-default><table class="table"><tbody>'
+            +'<td>'+data[0].Image+'</td><td>'+data[0].Status+'</td>'+'</tbody></table></div></div>')
         });
-      function teststring(mystr){
-        if(mystr.match(/[;|""|'']/)){
-          console.log("Error");
-          return false;
-        }
-        return true;
-      }
-      function sendkey(){
-          var mysshkey = document.getElementById('ssh').value;
-          if(teststring(mysshkey)){
-            socket.emit('sshkey',mysshkey);
-          }
-      }
     </script>
   </body>
 </html>

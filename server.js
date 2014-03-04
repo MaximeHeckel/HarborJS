@@ -15,6 +15,9 @@ app.configure(function(){
 app.get('/', function (req, res) {
   res.sendfile(__dirname + '/index.html');
 });
+app.get('/dashboard',function(req, res){
+  res.sendfile(__dirname + '/dashboard.html');
+});
 
 io.sockets.on('connection', function(socket){
 
