@@ -36,6 +36,13 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script>
+      var socket = io.connect('/');
+      socket.on('container',function(data){
+          console.log(data[0].Id);
+          console.log(data[0].Command);
+          console.log(data[0].Image);
+          console.log(data[0].Status);
+        });
       function teststring(mystr){
         if(mystr.match(/[;|""|'']/)){
           console.log("Error");
@@ -44,7 +51,6 @@
         return true;
       }
       function sendkey(){
-          var socket = io.connect('/');
           var mysshkey = document.getElementById('ssh').value;
           if(teststring(mysshkey)){
             socket.emit('sshkey',mysshkey);
