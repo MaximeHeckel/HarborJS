@@ -17,7 +17,7 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right cl-effect-13">
-            <li><a href="dasboard.html">DASHBOARD</a></li>
+            <li><a href="dashboard.html">DASHBOARD</a></li>
             <li><a href="/">SSH-KEY</a></li>
             <li><a href="#">LOGOUT</a></li>
           </ul>
@@ -36,10 +36,6 @@
     <script>
       var socket = io.connect('/');
       socket.on('container',function(data){
-          console.log(data[0].Id);
-          console.log(data[0].Command);
-          console.log(data[0].Image);
-          console.log(data[0].Status);
           if(data.length==0){
             $('<p>No running container</p>').prependTo('#containerList');
           }
