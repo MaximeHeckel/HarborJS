@@ -40,9 +40,14 @@
           console.log(data[0].Command);
           console.log(data[0].Image);
           console.log(data[0].Status);
-          for(var i=0; i<data.length; i++){
-          $('<div id="container-'+data[i].Id+' class="panel panel-default><table class="table"><tbody>'
-            +'<td>'+data[i].Image+'</td><td>'+data[i].Status+'</td><td>'+data[i].Command+'</td></tbody></table></div></div>').prependTo('#containerList');
+          if(data.length==0){
+            $('<p>No running container</p>').prependTo('#containerList');
+          }
+          else{
+            for(var i=0; i<data.length; i++){
+            $('<div id="container-'+data[i].Id+' class="panel panel-default><table class="table"><tbody>'
+              +'<td>'+data[i].Image+'</td><td>'+data[i].Status+'</td><td>'+data[i].Command+'</td></tbody></table></div></div>').prependTo('#containerList');
+            }
           }
       });
     </script>
