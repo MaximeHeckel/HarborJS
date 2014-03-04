@@ -27,7 +27,7 @@
     <div class="container pt">
       <div class="row mt">	
 			  <div class="col-lg-8 col-lg-offset-2">
-          <div id=containerlist></div>
+          <div id=containerList></div>
         </div>
       </div>
     </div>
@@ -41,7 +41,7 @@
           console.log(data[0].Image);
           console.log(data[0].Status);
           $('<div id="container-'+data[0].Id+' class="panel panel-default><table class="table"><tbody>'
-            +'<td>'+data[0].Image+'</td><td>'+data[0].Status+'</td>'+'</tbody></table></div></div>')
+            +'<td>'+data[0].Image+'</td><td>'+data[0].Status+'</td>'+'</tbody></table></div></div>').prependTo('#containerList');
         });
     </script>
   </body>
