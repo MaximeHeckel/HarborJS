@@ -64,7 +64,6 @@
           }
           else{
             for(var i=0; i<data.length; i++){
-		var thisid = data[i].Id;
               $('<div id="'+data[i].Id+'" class="panel panel-default"><table class="table"><tbody>'
               +'<td>'+data[i].Image+'</td><td>'+data[i].Status+'</td><td>'+data[i].Command+
 	     '</td><td><input type="submit" class="btn btn-danger" value="Delete app" id='+data[i].Id+' onclick=deleteContainer(this)></input>'
