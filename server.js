@@ -4,7 +4,7 @@ var http = require('http');
 var path = require('path');
 var exec = require('ssh-exec');
 var server = http.createServer(app);
-var docker = require('docker.io')({ socketPath: '/var/run/docker.sock' });
+var docker = require('docker.io')({ socketPath:'/var/run/docker.sock'});
 var io = require('socket.io').listen(server);
 
 
@@ -14,9 +14,6 @@ app.configure(function(){
 // routing
 app.get('/', function (req, res) {
   res.sendfile(__dirname + '/index.html');
-});
-app.get('/dashboard',function(req, res){
-  res.sendfile(__dirname + '/dashboard.html');
 });
 
 io.sockets.on('connection', function(socket){
@@ -28,14 +25,17 @@ io.sockets.on('connection', function(socket){
     password: 'admin'
     }).pipe(process.stdout);
   });
-  docker.containers.list(function(err,res){
-    socket.emit('container', res);
+  socket.on('containerId', function(data){
+   exec('docker kill '+data,{
+   user: 'root',
+   host: '127.0.0.1',
+   password: 'admin'
+   }).pipe(process.stdout);
   });
+	docker.containers.list(function(err,res){ 
+  	socket.emit('container',res);
+     });
 });
 
-function handler(res,err){
-  if(err) throw err;
-  console.log(res);
-};
 
 server.listen(8082);
