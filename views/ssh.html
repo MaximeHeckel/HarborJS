@@ -18,7 +18,7 @@
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right cl-effect-13">
             <li><a href="/dashboard">DASHBOARD</a></li>
-            <li><a href="/ssh">SSH-KEY</a></li>
+            <li><a href="/">SSH-KEY</a></li>
             <li><a href="#">LOGOUT</a></li>
           </ul>
         </div><!--/.nav-collapse -->
@@ -26,13 +26,30 @@
     </div>
     <div class="container pt">
       <div class="row mt">	
-	<div class="col-lg-6 col-lg-offset-2">
-            <h2 class=>Welcome to HarborJS</h2>
-	    <hr>
+			  <div class="col-lg-8 col-lg-offset-2">
+          <textarea id="ssh" type="text" name="sshinput" class="form-control" rows="6" placeholder="Enter your ssh key here"></textarea>
+          <br/>
+          <input id="sshsub"  class="btn btn-success" type="submit" onclick="sendkey()"></input>
         </div>
       </div>
     </div>
     <script src="/socket.io/socket.io.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>
+      var socket = io.connect('/');
+      function teststring(mystr){
+        if(mystr.match(/[;|""|'']/)){
+          console.log("Error");
+          return false;
+        }
+        return true;
+      }
+      function sendkey(){
+          var mysshkey = document.getElementById('ssh').value;
+          if(teststring(mysshkey)){
+            socket.emit('sshkey',mysshkey);
+          }
+      }
+    </script>
   </body>
 </html>

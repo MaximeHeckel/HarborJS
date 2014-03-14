@@ -11,18 +11,26 @@ var io = require('socket.io').listen(server);
 app.configure(function(){
   app.use(express.static(path.join(__dirname,'/')));
 });
+
 // routing
 app.get('/', function (req, res) {
   res.sendfile(__dirname + '/views/index.html');
 });
+
 app.get('/dashboard', function (req,res) {
   res.sendfile(__dirname + '/views/dashboard.html');
 });
-app.get('/containers/:id',function(req,res){
-  console.log("Inspect container");
-  res.render('containers/show.html');
+
+app.get('/ssh', function (req,res) {
+  res.sendfile(__dirname + '/views/ssh.html');
 });
 
+app.get('/containers/:id',function(req,res){
+  console.log("Inspect container");
+  res.render('/views/containers/show.html');
+});
+
+//socket functions
 io.sockets.on('connection', function(socket){
 
   socket.on('sshkey', function(data){

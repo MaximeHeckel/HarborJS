@@ -18,7 +18,7 @@
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right cl-effect-13">
             <li><a href="/dashboard">DASHBOARD</a></li>
-            <li><a href="/">SSH-KEY</a></li>
+            <li><a href="/ssh">SSH-KEY</a></li>
             <li><a href="#">LOGOUT</a></li>
           </ul>
         </div><!--/.nav-collapse -->
@@ -93,7 +93,7 @@
           else{
             for(var i=0; i<data.length; i++){
               $('<div id="'+data[i].Id+'" class="panel panel-default"><table class="table"><tbody>'
-              +'<td>'+data[i].Image+'</td><td>'+data[i].Status+'</td><td>'+data[i].Command+
+              +'<td><a href="/containers/'+data[i].Id+'">'+data[i].Image+'</a></td><td>'+data[i].Status+'</td><td>'+data[i].Command+
 	     '</td><td><input type="submit" class="btn btn-danger" value="Delete app" id='+data[i].Id+' onclick=deleteContainer(this)></input>'
 		+'</td></tbody></table></div></div>').prependTo('#containerList');
             }
