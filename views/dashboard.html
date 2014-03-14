@@ -43,13 +43,13 @@
 			</select>
 		</div>
 		<div class="col-lg-2">
-			<input id="linkdb" class="btn btn-default" type="submit" value="Link DB/App" onclick="dbLink()"></input>
+			<input id="link" class="btn btn-default" type="submit" value="Link DB/App" onclick="dbLink()"></input>
 		</div>
 		<div class="col-lg-2">
 			<input id="linkapp" class="form-control" type="text" placeholder="App Name"></input>
 		</div>
 		<div class="col-lg-2">
-			<input id="linkappdb" class="form-control" type="text" placeholder="DB Name"></input>
+			<input id="linkdb" class="form-control" type="text" placeholder="DB Name"></input>
 		</div>
 	  </div>
 	</div>
@@ -65,10 +65,12 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script>
         var socket = io.connect('/');
-        function deleteContainer(item){
+        
+	function deleteContainer(item){
           var idcont = $(item).attr("id");
           socket.emit('containerId',idcont);
         }
+
         function dbCreate(){
           var name = document.getElementById('dbname').value;
 	  var type = document.getElementById('dbtype').value;
@@ -76,6 +78,14 @@
           socket.emit('dbname', name);
 	  socket.emit('dbtype', type);
         }
+
+	function dbLink(){
+	  var appname = document.getElementById('linkapp').value;
+	  var dbname = document.getElementById('linkdb').value;
+	  socket.emit('apptolink',appname);
+	  socket.emit('dbtolink',dbname);
+	}
+
         socket.on('container',function(data){
           if(data.length==0){
             $('<p>No running apps</p>').prependTo('#containerList');

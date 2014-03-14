@@ -32,6 +32,7 @@ io.sockets.on('connection', function(socket){
     password: 'admin'
     }).pipe(process.stdout);
   });
+
   socket.on('containerId', function(data){
    exec('docker kill '+data,{
    user: 'root',
@@ -39,15 +40,29 @@ io.sockets.on('connection', function(socket){
    password: 'admin'
    }).pipe(process.stdout);
   });
+
   socket.on('dbname',function(data){
      var name=data;
      socket.on('dbtype',function(data){
 	console.log(data);
-     exec('dokku '+data+':create '+name,{
+        var type=data;
+     exec('dokku '+type+':create '+name,{
       user: 'root',
       host: '127.0.0.1',
       password: 'admin'
-    }).pipe(process.stdout)
+    }).pipe(process.stdout);
+  });
+
+  socket.on('apptolink', function(data){
+    var app=data;
+    socket.on('dbtolinl', function(data){
+	var db=data;
+	exec('dokku postgresql:link '+ app +' '+db,{ //need function find db type
+	  user: 'root',
+          host: '127.0.0.1',
+          password: 'admin'
+	}).pipe(process.stdout);
+    });
   });
 });
 	docker.containers.list(function(err,res){ 
