@@ -17,6 +17,7 @@ app.get('/', function (req, res) {
 });
 app.get('/containers/:id',function(req,res){
   console.log("Inspect container");
+  res.render('containers/show.html');
 });
 
 io.sockets.on('connection', function(socket){
