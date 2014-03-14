@@ -39,14 +39,17 @@ io.sockets.on('connection', function(socket){
    password: 'admin'
    }).pipe(process.stdout);
   });
-  socket.on('db',function(data){
-     console.log(data);
-     exec('dokku postgresql:create '+data,{
+  socket.on('dbname',function(data){
+     var name=data;
+     socket.on('dbtype',function(data){
+	console.log(data);
+     exec('dokku '+data+':create '+name,{
       user: 'root',
       host: '127.0.0.1',
       password: 'admin'
     }).pipe(process.stdout)
   });
+});
 	docker.containers.list(function(err,res){ 
   	socket.emit('container',res);
      });

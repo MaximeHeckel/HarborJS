@@ -71,8 +71,10 @@
         }
         function dbCreate(){
           var name = document.getElementById('dbname').value;
-	  console.log(name);
-          socket.emit('db', name);
+	  var type = document.getElementById('dbtype').value;
+	  console.log(type);
+          socket.emit('dbname', name);
+	  socket.emit('dbtype', type);
         }
         socket.on('container',function(data){
           if(data.length==0){
