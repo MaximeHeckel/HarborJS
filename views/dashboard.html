@@ -17,7 +17,7 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right cl-effect-13">
-            <li><a href="dashboard.html">DASHBOARD</a></li>
+            <li><a href="/dashboard">DASHBOARD</a></li>
             <li><a href="/">SSH-KEY</a></li>
             <li><a href="#">LOGOUT</a></li>
           </ul>
@@ -26,19 +26,30 @@
     </div>
     <div class="container pt">
       <div class="row mt">
-	<div class="col-lg-8 col-lg-offset-2">
+	<div class="col-lg-8 col-lg-offset-2 centered">
 	  <div id=containerCreate>
-		<div class="centered col-lg-2">
-			<input id="createbtn" class="btn btn-success" type="submit" value="Create app" onlick="containerCreate()"></input>
+		<div class="col-lg-2">
+			<input id="createdb" class="btn btn-success" type="submit" value="Create DB" onclick="dbCreate()"></input> 
 		</div>
-		<div class="centered col-lg-3">
-			<input id="appname" class="form-control" placeholder="App Name"></input>
+		<div class="col-lg-2">
+			<input id="dbname" class="form-control" type="text" placeholder="DB Name"></input>
 		</div>
-		<div class="centered col-lg-2">
-			<input id="createdb" class="btn btn-default" type="submit" value="Create DB" onclick="dbCreate()"></input> 
+		
+		<div class="col-lg-2">
+			<select id="dbtype" class="form-control">
+				<option value="postgresql">PGSQL</option>
+				<option value="mysql">MySQL</option>
+				<option value="redis">Redis</option>
+			</select>
 		</div>
-		<div class="centered col-lg-3">
-			<input id="dbname" class="form-control" placeholder="DB Name"></input>
+		<div class="col-lg-2">
+			<input id="linkdb" class="btn btn-default" type="submit" value="Link DB/App" onclick="dbLink()"></input>
+		</div>
+		<div class="col-lg-2">
+			<input id="linkapp" class="form-control" type="text" placeholder="App Name"></input>
+		</div>
+		<div class="col-lg-2">
+			<input id="linkappdb" class="form-control" type="text" placeholder="DB Name"></input>
 		</div>
 	  </div>
 	</div>
@@ -57,11 +68,11 @@
         function deleteContainer(item){
           var idcont = $(item).attr("id");
           socket.emit('containerId',idcont);
-          idcont.remove();
         }
         function dbCreate(){
           var name = document.getElementById('dbname').value;
-          socket.emit('dbname', name);
+	  console.log(name);
+          socket.emit('db', name);
         }
         socket.on('container',function(data){
           if(data.length==0){

@@ -15,6 +15,9 @@ app.configure(function(){
 app.get('/', function (req, res) {
   res.sendfile(__dirname + '/views/index.html');
 });
+app.get('/dashboard', function (req,res) {
+  res.sendfile(__dirname + '/views/dashboard.html');
+});
 app.get('/containers/:id',function(req,res){
   console.log("Inspect container");
   res.render('containers/show.html');
@@ -36,8 +39,9 @@ io.sockets.on('connection', function(socket){
    password: 'admin'
    }).pipe(process.stdout);
   });
-  socket.on('dbname',function(data){
-    exec('dokku postgresql:create'+data,{
+  socket.on('db',function(data){
+     console.log(data);
+     exec('dokku postgresql:create '+data,{
       user: 'root',
       host: '127.0.0.1',
       password: 'admin'
