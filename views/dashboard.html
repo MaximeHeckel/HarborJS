@@ -43,7 +43,7 @@
 	  </div>
 	</div>
 	<div class="centered col-lg-8 col-lg-offset-2">
-          	<br/>
+    <br/>
 		<h1>App list</h1>
 		<div id=containerList></div>
 		<br/>
@@ -53,12 +53,17 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script>
-	function deleteContainer(item){
-		var idcont = $(item).attr("id");
-		socket.emit('containerId',idcont);
-	}
-      var socket = io.connect('/');
-      socket.on('container',function(data){ 
+        var socket = io.connect('/');
+        function deleteContainer(item){
+          var idcont = $(item).attr("id");
+          socket.emit('containerId',idcont);
+          idcont.remove();
+        }
+        function dbCreate(){
+          var name = document.getElementById('dbname').value;
+          socket.emit('dbname', name);
+        }
+        socket.on('container',function(data){
           if(data.length==0){
             $('<p>No running apps</p>').prependTo('#containerList');
           }

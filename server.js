@@ -13,7 +13,10 @@ app.configure(function(){
 });
 // routing
 app.get('/', function (req, res) {
-  res.sendfile(__dirname + '/index.html');
+  res.sendfile(__dirname + '/views/index.html');
+});
+app.get('/containers/:id',function(req,res){
+  console.log("Inspect container");
 });
 
 io.sockets.on('connection', function(socket){
@@ -31,6 +34,13 @@ io.sockets.on('connection', function(socket){
    host: '127.0.0.1',
    password: 'admin'
    }).pipe(process.stdout);
+  });
+  socket.on('dbname',function(data){
+    exec('dokku postgresql:create'+data,{
+      user: 'root',
+      host: '127.0.0.1',
+      password: 'admin'
+    }).pipe(process.stdout)
   });
 	docker.containers.list(function(err,res){ 
   	socket.emit('container',res);
