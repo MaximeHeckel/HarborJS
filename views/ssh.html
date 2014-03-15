@@ -29,7 +29,7 @@
 			  <div class="col-lg-8 col-lg-offset-2">
           <textarea id="ssh" type="text" name="sshinput" class="form-control" rows="6" placeholder="Enter your ssh key here"></textarea>
           <br/>
-          <input id="sshsub"  class="btn btn-success" type="submit" onclick="sendkey()"></input>
+          <input id="sshsub"  class="btn btn-success" type="submit" onclick="sendKey()"></input>
         </div>
       </div>
     </div>
@@ -37,19 +37,43 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script>
       var socket = io.connect('/');
-      function teststring(mystr){
+      
+      socket.on('connect', function() {
+        console.log('Socket connected.');
+      });
+
+      socket.on('disconnect', function() {
+        var err = 'Socket disconnected.';
+        console.warn(err);
+        //alert(err);
+      });
+
+      socket.on('sshkeyAdded', function() {
+        console.log("Received sshKeyAdded");
+        alert('You ssh key has been added !');
+      });
+
+      function testString(mystr){
         if(mystr.match(/[;|""|'']/)){
-          console.log("Error");
           return false;
         }
         return true;
       }
-      function sendkey(){
-          var mysshkey = document.getElementById('ssh').value;
-          if(teststring(mysshkey)){
-            socket.emit('sshkey',mysshkey);
-          }
+
+      function sendKey() {
+        var mySshKey = document.getElementById('ssh').value;
+
+        if(testString(mySshKey)) {
+          socket.emit('sshkey', mySshKey);
+          console.log('Socket emitted: ' + mySshKey);
+        }
+        else {
+          var err = 'Error: ssh key not valid.';
+          console.warn(err);
+          alert(err);
+        }
       }
-    </script>
+
+         </script>
   </body>
 </html>

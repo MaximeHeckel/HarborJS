@@ -39,18 +39,22 @@ app.get('/containers/:id', function(req,res) {
 io.sockets.on('connection', function(socket){
 
   socket.on('sshkey', function(data){
+    console.log('Received ssh key: ' + data);
+
     exec('touch ssh.pub ; echo ' + data + ' > ssh.pub; cat ~/ssh.pub | sudo sshcommand acl-add dokku progrium', {
-    user: 'root',
-    host: '127.0.0.1',
-    password: 'admin'
+      user: 'root',
+      host: '127.0.0.1',
+      password: 'admin'
     }).pipe(process.stdout);
+
+    socket.emit('sshkeyAdded');
   });
 
   socket.on('containerId', function(data) {
-   exec('docker kill ' + data,{
-   user: 'root',
-   host: '127.0.0.1',
-   password: 'admin'
+    exec('docker kill ' + data,{
+      user: 'root',
+      host: '127.0.0.1',
+      password: 'admin'
    }).pipe(process.stdout);
   });
 
