@@ -74,6 +74,15 @@
       function dbCreate() {
         var dbName = document.getElementById('dbname').value;
         var dbType = document.getElementById('dbtype').value;
+        if(!dbName) {
+          alert('Choose a name for the database.');
+          return;
+        }
+        if(!dbName.match(/^[a-z0-9]+$/i)) {
+          alert('Database name must be alphanumeric.');
+          return;
+        }
+
         console.log('Db creation: ' + dbType + ', ' + dbName);
         socket.emit('dbCreate', {name: dbName, type: dbType});
       }
