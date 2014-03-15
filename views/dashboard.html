@@ -64,40 +64,40 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script>
-        var socket = io.connect('/');
-        
-	function deleteContainer(item){
-          var idcont = $(item).attr("id");
-          socket.emit('containerId',idcont);
+      var socket = io.connect('/');
+
+      function deleteContainer(item) {
+        var idcont = $(item).attr('id');
+        socket.emit('containerId', idcont);
+      }
+
+      function dbCreate() {
+        var name = document.getElementById('dbname').value;
+        var type = document.getElementById('dbtype').value;
+        console.log(type);
+        socket.emit('dbname', name);
+        socket.emit('dbtype', type);
+      }
+
+      function dbLink() {
+        var appname = document.getElementById('linkapp').value;
+        var dbname = document.getElementById('linkdb').value;
+        socket.emit('apptolink', appname);
+        socket.emit('dbtolink', dbname);
+      }
+
+      socket.on('container', function(data){
+        if( !data || data.length == 0) {
+          $('<p>No running apps</p>').prependTo('#containerList');
         }
-
-        function dbCreate(){
-          var name = document.getElementById('dbname').value;
-	  var type = document.getElementById('dbtype').value;
-	  console.log(type);
-          socket.emit('dbname', name);
-	  socket.emit('dbtype', type);
+        else{
+          for(var i = 0; i < data.length; i++){
+            $('<div id="' + data[i].Id + '" class="panel panel-default"><table class="table"><tbody>'
+              + '<td><a href="/containers/' + data[i].Id + '">' + data[i].Image + '</a></td><td>' + data[i].Status + '</td><td>' + data[i].Command
+              + '</td><td><input type="submit" class="btn btn-danger" value="Delete app" id=' + data[i].Id + ' onclick=deleteContainer(this)></input>'
+              + '</td></tbody></table></div></div>').prependTo('#containerList');
+          }
         }
-
-	function dbLink(){
-	  var appname = document.getElementById('linkapp').value;
-	  var dbname = document.getElementById('linkdb').value;
-	  socket.emit('apptolink',appname);
-	  socket.emit('dbtolink',dbname);
-	}
-
-        socket.on('container',function(data){
-          if(data.length==0){
-            $('<p>No running apps</p>').prependTo('#containerList');
-          }
-          else{
-            for(var i=0; i<data.length; i++){
-              $('<div id="'+data[i].Id+'" class="panel panel-default"><table class="table"><tbody>'
-              +'<td><a href="/containers/'+data[i].Id+'">'+data[i].Image+'</a></td><td>'+data[i].Status+'</td><td>'+data[i].Command+
-	     '</td><td><input type="submit" class="btn btn-danger" value="Delete app" id='+data[i].Id+' onclick=deleteContainer(this)></input>'
-		+'</td></tbody></table></div></div>').prependTo('#containerList');
-            }
-          }
       });
     </script>
   </body>
