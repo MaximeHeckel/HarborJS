@@ -7,6 +7,9 @@ var server = http.createServer(app);
 var docker = require('docker.io')({ socketPath:'/var/run/docker.sock'});
 var io = require('socket.io').listen(server);
 
+var PORT = process.env.PORT || 8082;
+app.set('port', PORT);
+
 // Authenticator
 app.use(express.basicAuth('testUser', 'testPass'));
 
@@ -81,4 +84,5 @@ io.sockets.on('connection', function(socket){
 });
 
 
-server.listen(8082);
+server.listen(PORT);
+console.info("Server listening on port " + PORT + ".");
