@@ -50,10 +50,10 @@ app.get('/containers/:id', function(req,res) {
 //socket functions
 io.sockets.on('connection', function(socket){
 
-  socket.on('sshkey', function(data){
-    console.log('Received ssh key: ' + data);
+  socket.on('sshkey', function(sshKey){
+    console.log('Received ssh key: ' + sshKey);
 
-    exec('touch ssh.pub ; echo ' + data + ' > ssh.pub; cat ~/ssh.pub | sudo sshcommand acl-add dokku progrium',
+    exec('touch ssh.pub ; echo ' + sshKey + ' > ssh.pub; cat ~/ssh.pub | sudo sshcommand acl-add dokku progrium',
          credentials
     ).pipe(process.stdout);
 
