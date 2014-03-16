@@ -3,7 +3,7 @@
 This project aims to provide a full web interface for dokku in order to manage apps, databases and even user account
 
 ##Install
-`npm update`
+`npm install`
 
 Create a `credentials.json` file in the root directory to connect to your dokku installation:
 
