@@ -27,8 +27,10 @@
     <div class="container pt">
       <div class="row mt">	
 	<div class="col-lg-6 col-lg-offset-2">
-            <h2 class=>Welcome to HarborJS</h2>
+            <div id="title"></div>
 	    <hr>
+	    <br/>
+	    <div id="detail"></div>
         </div>
       </div>
     </div>
@@ -37,8 +39,9 @@
     <script>
       var socket = io.connect('/');
       socket.emit('inspectId',window.location.pathname.substring(12));
-      socket.on('thiscontainer', function(data){
-	   console.log(data);
+      socket.on('thiscontainer', function(data){ 
+	  $('<h2>'+data.Config.Image+'</h2>').prependTo('#title');
+	  $('<p>Created :  '+data.Created+'</p><p>Running :  '+data.State.Running+'</p><p>Command :  '+data.Path+'</p><p>Password :  '+data.Args+'</p>').prependTo('#detail');
 	});
     </script>
   </body>

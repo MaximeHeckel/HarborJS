@@ -5,7 +5,6 @@ This project aims to provide a full web interface for dokku in order to manage a
 
 ####TO DO
 
-- Add specific view for each container
 - Add Database ( Rethink DB or Redis ) for user account
 - Ability to send command to a specific conainer
 - Add tty.js for docker to project
