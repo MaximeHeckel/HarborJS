@@ -36,19 +36,10 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script>
       var socket = io.connect('/');
-      function teststring(mystr){
-        if(mystr.match(/[;|""|'']/)){
-          console.log("Error");
-          return false;
-        }
-        return true;
-      }
-      function sendkey(){
-          var mysshkey = document.getElementById('ssh').value;
-          if(teststring(mysshkey)){
-            socket.emit('sshkey',mysshkey);
-          }
-      }
+      socket.emit('inspectId',window.location.pathname.substring(12));
+      socket.on('thiscontainer', function(data){
+	   console.log(data);
+	});
     </script>
   </body>
 </html>

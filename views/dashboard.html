@@ -69,7 +69,7 @@
 	function deleteContainer(item){
           var idcont = $(item).attr("id");
           socket.emit('containerId',idcont);
-        }
+       }
 
         function dbCreate(){
           var dbName = document.getElementById('dbname').value;
@@ -90,7 +90,7 @@
           else{
             for(var i=0; i<data.length; i++){
               $('<div id="'+data[i].Id+'" class="panel panel-default"><table class="table"><tbody>'
-              +'<td><a href="/containers/'+data[i].Id+'">'+data[i].Image+'</a></td><td>'+data[i].Status+'</td><td>'+data[i].Command+
+              +'<td><a href="/containers/'+data[i].Id+'" id='+data[i].Id+'>'+data[i].Image+'</a></td><td>'+data[i].Status+'</td><td>'+data[i].Command+
 	     '</td><td><input type="submit" class="btn btn-danger" value="Delete app" id='+data[i].Id+' onclick=deleteContainer(this)></input>'
 		+'</td></tbody></table></div></div>').prependTo('#containerList');
             }

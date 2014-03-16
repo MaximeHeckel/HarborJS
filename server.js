@@ -28,9 +28,15 @@ app.get('/ssh', function (req,res) {
 });
 
 app.get('/containers/:id',function(req,res){
-  console.log("Inspect container");
-  res.sendfile(__dirname + '/views/containers/show.html');
+  res.sendfile(__dirname + '/views/containers/show.html',{container: docker.containers});
 });
+
+
+//for api test purposes 
+/*docker.containers.inspect('9771bda577f5d81da130f9518160fafb2a9d878b8e74a558edc2f3bfb876fcda', function(err,res){
+	if(err) throw err;
+	console.log(res);	
+});*/
 
 //socket functions
 io.sockets.on('connection', function(socket){
@@ -73,6 +79,15 @@ io.sockets.on('connection', function(socket){
 	docker.containers.list(function(err,res){ 
   	socket.emit('container',res);
      });
+
+  socket.on('inspectId',function(data){
+	var containerId=data;
+	console.log('INSPECT CONTAINER WITH ID '+containerId);
+	docker.containers.inspect(containerId ,function(err,res){
+          console.log(res);
+          socket.emit('thiscontainer',res);
+	});
+  });
 });
 
 
