@@ -18,6 +18,9 @@ Create a `credentials.json` file in the root directory to connect to your dokku 
 
 The `user` field probably has the value `root` to execute all sorts of commands.
 
+##Launch
+
+`node server.js`
 
 ####TO DO
 
