@@ -49,11 +49,9 @@ io.sockets.on('connection', function(socket){
    }).pipe(process.stdout);
   });
 
-  socket.on('dbname',function(data){
-     var name=data;
-     socket.on('dbtype',function(data){
-	console.log(data);
-        var type=data;
+  socket.on('dbCreate',function(data){
+     var name=data.name;
+     var type=data.type;
      exec('dokku '+type+':create '+name,{
       user: 'root',
       host: '127.0.0.1',
@@ -62,17 +60,14 @@ io.sockets.on('connection', function(socket){
   });
 
   socket.on('apptolink', function(data){
-    var app=data;
-    socket.on('dbtolinl', function(data){
-	var db=data;
+	var app=data.appName;
+	var db=data.dbName;
 	exec('dokku postgresql:link '+ app +' '+db,{ //need function find db type
 	  user: 'root',
           host: '127.0.0.1',
           password: 'admin'
 	}).pipe(process.stdout);
     });
-  });
-});
 	docker.containers.list(function(err,res){ 
   	socket.emit('container',res);
      });

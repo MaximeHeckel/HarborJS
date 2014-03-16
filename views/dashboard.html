@@ -72,18 +72,15 @@
         }
 
         function dbCreate(){
-          var name = document.getElementById('dbname').value;
-	  var type = document.getElementById('dbtype').value;
-	  console.log(type);
-          socket.emit('dbname', name);
-	  socket.emit('dbtype', type);
+          var dbName = document.getElementById('dbname').value;
+	  var dbType = document.getElementById('dbtype').value;
+          socket.emit('dbCreate', {name: dbName, type: dbType});
         }
 
 	function dbLink(){
 	  var appname = document.getElementById('linkapp').value;
 	  var dbname = document.getElementById('linkdb').value;
-	  socket.emit('apptolink',appname);
-	  socket.emit('dbtolink',dbname);
+	  socket.emit('dbLink',{appName:appname, dbName: dbname});
 	}
 
         socket.on('container',function(data){
