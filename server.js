@@ -7,6 +7,8 @@ var server = http.createServer(app);
 var docker = require('docker.io')({ socketPath:'/var/run/docker.sock'});
 var io = require('socket.io').listen(server);
 
+// Authenticator
+app.use(express.basicAuth('testUser', 'testPass'));
 
 app.configure(function(){
   app.use(express.static(path.join(__dirname,'/')));
