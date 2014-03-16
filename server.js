@@ -49,6 +49,7 @@ app.get('/containers/:id', function(req,res) {
 
 //socket functions
 io.sockets.on('connection', function(socket){
+  console.log('Socket connected !');
 
   socket.on('sshkey', function(sshKey){
     console.log('Received ssh key: ' + sshKey);
@@ -81,6 +82,11 @@ io.sockets.on('connection', function(socket){
 
 
   docker.containers.list(function(err,res) {
+    if(err) {
+      console.warn("Docker connection problem:");
+      console.warn(err);
+      socket.emit('dockerConnectionProblem', err);
+    }
     socket.emit('containerList',res);
   });
 });

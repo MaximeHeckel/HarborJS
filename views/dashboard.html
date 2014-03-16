@@ -92,6 +92,9 @@
         var dbname = document.getElementById('linkdb').value;
         socket.emit('dbLink', {appName: appname, dbName: dbname});
       }
+      socket.on('dockerConnectionProblem', function(err) {
+        alert('Docker connection problem: ' + err.errno);
+      });
 
       socket.on('containerList', function(data){
         if( !data || data.length == 0) {
