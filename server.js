@@ -27,7 +27,7 @@ app.get('/ssh', function (req,res) {
 
 app.get('/containers/:id',function(req,res){
   console.log("Inspect container");
-  res.render('/views/containers/show.html');
+  res.sendfile(__dirname + '/views/containers/show.html');
 });
 
 //socket functions
