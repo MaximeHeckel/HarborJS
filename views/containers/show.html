@@ -41,7 +41,7 @@
       socket.emit('inspectId',window.location.pathname.substring(12));
       socket.on('thiscontainer', function(data){ 
 	  $('<h2>'+data.Config.Image+'</h2>').prependTo('#title');
-	  $('<p>Created :  '+data.Created+'</p><p>Running :  '+data.State.Running+'</p><p>Command :  '+data.Path+'</p><p>Password :  '+data.Args+'</p>').prependTo('#detail');
+	  $('<p>Created :  '+data.Created+'</p><p>Running :  '+data.State.Running+'</p><p>Command :  '+data.Path+'</p><p>Password :  '+data.Config.Cmd[1]+'</p>').prependTo('#detail');
 	});
     </script>
   </body>
