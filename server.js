@@ -99,5 +99,5 @@ io.sockets.on('connection', function(socket){
 
 
 server.listen(app.get('port'));
-console.log('Express server listening on port ' + app.get('port'));
+console.log('HarborJS listening on port ' + app.get('port'));
 
