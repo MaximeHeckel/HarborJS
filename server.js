@@ -10,25 +10,32 @@ var io = require('socket.io').listen(server);
 // Authenticator
 app.use(express.basicAuth('testUser', 'testPass'));
 
-app.configure(function(){
-  app.use(express.static(path.join(__dirname,'/')));
-});
+app.set('port', process.env.PORT || 3000);
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+app.use(express.favicon());
+app.use(express.logger('dev'));
+app.use(express.bodyParser());
+app.use(express.methodOverride());
+app.use(app.router);
+app.use(express.static(path.join(__dirname, 'public')));
+
 
 // routing
 app.get('/', function (req, res) {
-  res.sendfile(__dirname + '/views/index.html');
+  res.render('index.ejs');
 });
 
 app.get('/dashboard', function (req,res) {
-  res.sendfile(__dirname + '/views/dashboard.html');
+  res.render('dashboard.ejs');
 });
 
 app.get('/ssh', function (req,res) {
-  res.sendfile(__dirname + '/views/ssh.html');
+  res.render('ssh.ejs');
 });
 
 app.get('/containers/:id',function(req,res){
-  res.sendfile(__dirname + '/views/containers/show.html',{container: docker.containers});
+  res.render('containers/show.ejs');
 });
 
 
@@ -91,4 +98,6 @@ io.sockets.on('connection', function(socket){
 });
 
 
-server.listen(8082);
+server.listen(app.get('port'));
+console.log('Express server listening on port ' + app.get('port'));
+
