@@ -62,7 +62,7 @@
                 <table class="table">
                   <tbody>
                     <td>
-                      <a href="/containers/<%=containers[i].Id%>" id="<%=containers[i].Id%>"><%=containers[i].Image%></a>
+                      <a href="/containers/<%=containers[i].Id%>" id="<%=containers[i].Id%>" onclick="sendId(this)"><%=containers[i].Image%></a>
                     </td>
                     <td>
                       <%=containers[i].Status%>
@@ -85,6 +85,11 @@
         function deleteContainer(item){
           var idcont = $(item).attr("id");
           socket.emit('containerId',idcont);
+        }
+
+        function sendId(item){
+          var idcont = $(item).attr("id");
+          socket.emit('inspectId', idcont);
         }
 
         function dbCreate(){

@@ -43,7 +43,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script>
       var socket = io.connect('/');
-      //socket.emit('inspectId',window.location.pathname.substring(12));
+      socket.emit('inspectId',window.location.pathname.substring(12));
       /*socket.on('thiscontainer', function(data){
 	  $('<h2>'+data.Config.Image+'</h2>').prependTo('#title');
 	  $('<p>Created :  '+data.Created+'</p><p>Running :  '+data.State.Running+'</p><p>Command :  '+data.Path+'</p><p>Password :  '+data.Config.Cmd[1]+'</p>').prependTo('#detail');
