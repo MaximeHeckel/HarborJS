@@ -26,79 +26,95 @@
     </div>
     <div class="container pt">
       <div class="row mt">
-	<div class="col-lg-8 col-lg-offset-2 centered">
-	  <div id=containerCreate>
-		<div class="col-lg-2">
-			<input id="createdb" class="btn btn-success" type="submit" value="Create DB" onclick="dbCreate()"></input> 
-		</div>
-		<div class="col-lg-2">
-			<input id="dbname" class="form-control" type="text" placeholder="DB Name"></input>
-		</div>
-		
-		<div class="col-lg-2">
-			<select id="dbtype" class="form-control">
-				<option value="postgresql">PGSQL</option>
-				<option value="mysql">MySQL</option>
-				<option value="redis">Redis</option>
-			</select>
-		</div>
-		<div class="col-lg-2">
-			<input id="link" class="btn btn-default" type="submit" value="Link DB/App" onclick="dbLink()"></input>
-		</div>
-		<div class="col-lg-2">
-			<input id="linkapp" class="form-control" type="text" placeholder="App Name"></input>
-		</div>
-		<div class="col-lg-2">
-			<input id="linkdb" class="form-control" type="text" placeholder="DB Name"></input>
-		</div>
-	  </div>
-	</div>
-	<div class="centered col-lg-8 col-lg-offset-2">
-    <br/>
-		<h1>App list</h1>
-		<div id=containerList></div>
-		<br/>
-		<%for(var i=0; i<containers.length; i++){%>
-		  <%=containers[i].Command%>
-		<%}%>
+        <div class="col-lg-8 col-lg-offset-2 centered">
+          <div id=containerCreate>
+            <div class="col-lg-2">
+              <input id="createdb" class="btn btn-success" type="submit" value="Create DB" onclick="dbCreate()"></input> 
+            </div>
+            <div class="col-lg-2">
+              <input id="dbname" class="form-control" type="text" placeholder="DB Name"></input>
+            </div>
+            <div class="col-lg-2">
+              <select id="dbtype" class="form-control">
+                <option value="postgresql">PGSQL</option>
+                <option value="mysql">MySQL</option>
+                <option value="redis">Redis</option>
+              </select>
+            </div>
+            <div class="col-lg-2">
+              <input id="link" class="btn btn-default" type="submit" value="Link DB/App" onclick="dbLink()"></input>
+            </div>
+            <div class="col-lg-2">
+              <input id="linkapp" class="form-control" type="text" placeholder="App Name"></input>
+            </div>
+            <div class="col-lg-2">
+              <input id="linkdb" class="form-control" type="text" placeholder="DB Name"></input>
+            </div>
+          </div>
+        </div>
+        <div class="centered col-lg-8 col-lg-offset-2">
+        <br/>
+         <h1>App list</h1>
+         <!--<div id=containerList></div>-->
+          <br/>
+            <%for(var i=0; i<containers.length; i++){%>
+              <div id="<%=containers[i].Id%>" class="panel panel-default">
+                <table class="table">
+                  <tbody>
+                    <td>
+                      <a href="/containers/<%=containers[i].Id%>" id="<%=containers[i].Id%>"><%=containers[i].Image%></a>
+                    </td>
+                    <td>
+                      <%=containers[i].Status%>
+                    </td>
+                    <td>
+                      <input type="submit" class="btn btn-danger" value="Delete app" id="<%=containers[i].Id%>" onclick="deleteContainer(this)"></input>
+                    </td>
+                  </tbody>
+                </table>
+              </div>
+            <%}%>
+          </div>
         </div>
       </div>
-    </div>
     <script src="/socket.io/socket.io.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script>
         var socket = io.connect('/');
-        
-	function deleteContainer(item){
+
+        function deleteContainer(item){
           var idcont = $(item).attr("id");
           socket.emit('containerId',idcont);
-       }
+        }
 
         function dbCreate(){
           var dbName = document.getElementById('dbname').value;
-	  var dbType = document.getElementById('dbtype').value;
+          var dbType = document.getElementById('dbtype').value;
           socket.emit('dbCreate', {name: dbName, type: dbType});
         }
 
-	function dbLink(){
-	  var appname = document.getElementById('linkapp').value;
-	  var dbname = document.getElementById('linkdb').value;
-	  socket.emit('dbLink',{appName:appname, dbName: dbname});
-	}
+        function dbLink(){
+          var appname = document.getElementById('linkapp').value;
+          var dbname = document.getElementById('linkdb').value;
+          socket.emit('dbLink',{appName:appname, dbName: dbname});
+        }
 
-        socket.on('container',function(data){
+        /*socket.on('container',function(data){
           if(data.length==0){
             $('<p>No running apps</p>').prependTo('#containerList');
           }
           else{
             for(var i=0; i<data.length; i++){
-              $('<div id="'+data[i].Id+'" class="panel panel-default"><table class="table"><tbody>'
-              +'<td><a href="/containers/'+data[i].Id+'" id='+data[i].Id+'>'+data[i].Image+'</a></td><td>'+data[i].Status+'</td><td>'+data[i].Command+
+            $('<div id="'+data[i].Id+'" class="panel panel-default">
+              <table class="table"><tbody>'
+              +'<td><a href="/containers/'+data[i].Id+'" id='+data[i].Id+'>'
+              +data[i].Image+'</a></td><td>'+data[i].Status+'</td>
+              <td>'+data[i].Command+
 	     '</td><td><input type="submit" class="btn btn-danger" value="Delete app" id='+data[i].Id+' onclick=deleteContainer(this)></input>'
 		+'</td></tbody></table></div></div>').prependTo('#containerList');
             }
           }
-      });
+      });*/
     </script>
   </body>
 </html>
