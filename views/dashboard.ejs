@@ -98,23 +98,6 @@
           var dbname = document.getElementById('linkdb').value;
           socket.emit('dbLink',{appName:appname, dbName: dbname});
         }
-
-        /*socket.on('container',function(data){
-          if(data.length==0){
-            $('<p>No running apps</p>').prependTo('#containerList');
-          }
-          else{
-            for(var i=0; i<data.length; i++){
-            $('<div id="'+data[i].Id+'" class="panel panel-default">
-              <table class="table"><tbody>'
-              +'<td><a href="/containers/'+data[i].Id+'" id='+data[i].Id+'>'
-              +data[i].Image+'</a></td><td>'+data[i].Status+'</td>
-              <td>'+data[i].Command+
-	     '</td><td><input type="submit" class="btn btn-danger" value="Delete app" id='+data[i].Id+' onclick=deleteContainer(this)></input>'
-		+'</td></tbody></table></div></div>').prependTo('#containerList');
-            }
-          }
-      });*/
-    </script>
+      </script>
   </body>
 </html>

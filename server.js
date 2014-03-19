@@ -27,8 +27,8 @@ app.get('/', function (req, res) {
 });
 
 app.get('/dashboard', function (req,res) {
-  docker.containers.list(function(err,data){
-     res.render('dashboard.ejs',{containers: data});
+  docker.containers.list(function(err,req){
+     res.render('dashboard.ejs',{containers: req});
   });
 });
 
@@ -37,19 +37,20 @@ app.get('/ssh', function (req,res) {
 });
 
 app.get('/containers/:id',function(req,res){
-  res.render('containers/show.ejs');
+  socket.on('inspectId',function(data){
+    var containerId=data;
+    console.log('INSPECT CONTAINER WITH ID '+containerId);
+    docker.containers.inspect(containerId,function(err,req){
+      res.render('containers/show.ejs',{container: req});
+    });
+  });
 });
 
 
-//for api test purposes 
-/*docker.containers.inspect('9771bda577f5d81da130f9518160fafb2a9d878b8e74a558edc2f3bfb876fcda', function(err,res){
-	if(err) throw err;
-	console.log(res);	
-});*/
-docker.containers.list(function(err,res){
-   for(var i = 0; i< res.length; i++){	
-	console.log(res[i].Command);
-	}
+//for api test purposes
+
+docker.info(function(err,res){
+  console.log(res);
 });
 
 //socket functions
@@ -57,24 +58,24 @@ io.sockets.on('connection', function(socket){
 
   socket.on('sshkey', function(data){
     exec('touch ssh.pub ; echo '+data+' > ssh.pub; cat ~/ssh.pub | sudo sshcommand acl-add dokku progrium', {
-    user: 'root',
-    host: '127.0.0.1',
-    password: 'admin'
+      user: 'root',
+      host: '127.0.0.1',
+      password: 'admin'
     }).pipe(process.stdout);
   });
 
   socket.on('containerId', function(data){
-   exec('docker kill '+data,{
-   user: 'root',
-   host: '127.0.0.1',
-   password: 'admin'
+    exec('docker kill '+data,{
+      user: 'root',
+      host: '127.0.0.1',
+      password: 'admin'
    }).pipe(process.stdout);
   });
 
   socket.on('dbCreate',function(data){
-     var name=data.name;
-     var type=data.type;
-     exec('dokku '+type+':create '+name,{
+    var name=data.name;
+    var type=data.type;
+    exec('dokku '+type+':create '+name,{
       user: 'root',
       host: '127.0.0.1',
       password: 'admin'
@@ -82,17 +83,14 @@ io.sockets.on('connection', function(socket){
   });
 
   socket.on('apptolink', function(data){
-	var app=data.appName;
-	var db=data.dbName;
-	exec('dokku postgresql:link '+ app +' '+db,{ //need function find db type
-	  user: 'root',
-          host: '127.0.0.1',
-          password: 'admin'
-	}).pipe(process.stdout);
-    });
-	docker.containers.list(function(err,res){ 
-  	socket.emit('container',res);
-     });
+    var app=data.appName;
+    var db=data.dbName;
+    exec('dokku postgresql:link '+ app +' '+db,{ //need function find db type
+      user: 'root',
+      host: '127.0.0.1',
+      password: 'admin'
+    }).pipe(process.stdout);
+  });
 
   socket.on('inspectId',function(data){
 	var containerId=data;

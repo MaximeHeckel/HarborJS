@@ -25,12 +25,17 @@
       </div>
     </div>
     <div class="container pt">
-      <div class="row mt">	
-	<div class="col-lg-6 col-lg-offset-2">
-            <div id="title"></div>
-	    <hr>
-	    <br/>
-	    <div id="detail"></div>
+      <div class="row mt">
+        <div class="col-lg-6 col-lg-offset-2">
+          <div id="title"><%=container.Config.Image%></div>
+          <hr/>
+          <br/>
+          <div id="detail">
+            <p>Created: <%=container.Created%></p>
+            <p>Running: <%=container.State.Running%></p>
+            <p>Command: <%=container.Path%></p>
+            <p>Arguments: <%=container.Args[0]%></p>
+          </div>
         </div>
       </div>
     </div>
@@ -38,11 +43,11 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script>
       var socket = io.connect('/');
-      socket.emit('inspectId',window.location.pathname.substring(12));
-      socket.on('thiscontainer', function(data){ 
+      //socket.emit('inspectId',window.location.pathname.substring(12));
+      /*socket.on('thiscontainer', function(data){
 	  $('<h2>'+data.Config.Image+'</h2>').prependTo('#title');
 	  $('<p>Created :  '+data.Created+'</p><p>Running :  '+data.State.Running+'</p><p>Command :  '+data.Path+'</p><p>Password :  '+data.Config.Cmd[1]+'</p>').prependTo('#detail');
-	});
+	});*/
     </script>
   </body>
 </html>
