@@ -37,12 +37,14 @@ app.get('/ssh', function (req,res) {
 });
 
 app.get('/containers/:id',function(req,res){
+  io.sockets.on('connectionview', function(socket){
   socket.on('inspectId',function(data){
     var containerId=data;
     console.log('INSPECT CONTAINER WITH ID '+containerId);
     docker.containers.inspect(containerId,function(err,req){
       res.render('containers/show.ejs',{container: req});
     });
+  });
   });
 });
 
