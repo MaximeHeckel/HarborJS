@@ -23,11 +23,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // routing
 app.get('/', function (req, res) {
-  res.render('index.ejs');
+     res.render('index.ejs');
 });
 
 app.get('/dashboard', function (req,res) {
-  res.render('dashboard.ejs');
+  docker.containers.list(function(err,data){
+     res.render('dashboard.ejs',{containers: data});
+  });
 });
 
 app.get('/ssh', function (req,res) {
@@ -44,6 +46,11 @@ app.get('/containers/:id',function(req,res){
 	if(err) throw err;
 	console.log(res);	
 });*/
+docker.containers.list(function(err,res){
+   for(var i = 0; i< res.length; i++){	
+	console.log(res[i].Command);
+	}
+});
 
 //socket functions
 io.sockets.on('connection', function(socket){
