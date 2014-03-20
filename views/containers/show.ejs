@@ -2,7 +2,7 @@
   <head>
     <meta charset="UTF-8">
     <title>HarborJS</title>
-    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="../css/bootstrap.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
     <div class="navbar navbar-inverse navbar-static-top">
@@ -27,7 +27,9 @@
     <div class="container pt">
       <div class="row mt">
         <div class="col-lg-6 col-lg-offset-2">
-          <div id="title"><%=container.Config.Image%></div>
+          <div id="title">
+	   <h2><%=container.Config.Image%></h2>
+	  </div>
           <hr/>
           <br/>
           <div id="detail">
@@ -43,11 +45,6 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script>
       var socket = io.connect('/');
-      socket.emit('inspectId',window.location.pathname.substring(12));
-      /*socket.on('thiscontainer', function(data){
-	  $('<h2>'+data.Config.Image+'</h2>').prependTo('#title');
-	  $('<p>Created :  '+data.Created+'</p><p>Running :  '+data.State.Running+'</p><p>Command :  '+data.Path+'</p><p>Password :  '+data.Config.Cmd[1]+'</p>').prependTo('#detail');
-	});*/
     </script>
   </body>
 </html>

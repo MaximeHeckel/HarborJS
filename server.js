@@ -37,8 +37,8 @@ app.get('/ssh', function (req,res) {
 });
 
 app.get('/containers/:id',function(req,res){
-    console.log('INSPECT CONTAINER WITH ID '+containerId);
-    docker.containers.inspect(':id',function(err,req){
+    console.log('INSPECT CONTAINER WITH ID '+req.params.id);
+    docker.containers.inspect(req.params.id,function(err,req){
       res.render('containers/show.ejs',{container: req});
     });
   });
@@ -87,15 +87,6 @@ io.sockets.on('connection', function(socket){
       host: '127.0.0.1',
       password: 'admin'
     }).pipe(process.stdout);
-  });
-
-  socket.on('inspectId',function(data){
-	var containerId=data;
-	console.log('INSPECT CONTAINER WITH ID '+containerId);
-	docker.containers.inspect(containerId ,function(err,res){
-          console.log(res);
-          socket.emit('thiscontainer',res);
-	});
   });
 });
 
