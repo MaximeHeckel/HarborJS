@@ -1,56 +1,52 @@
-var express = require('express');
-var app = express();
+// server.js
+
+// set up ======================================================================
+var express  = require('express');
+var app      = express();
+var port     = process.env.PORT || 3000;
+var mongoose = require('mongoose');
+var passport = require('passport');
 var http = require('http');
 var path = require('path');
 var exec = require('ssh-exec');
+var flash    = require('connect-flash');
 var server = http.createServer(app);
-var docker = require('docker.io')({ socketPath:'/var/run/docker.sock'});
 var io = require('socket.io').listen(server);
+var docker = require('docker.io')({ socketPath:'/var/run/docker.sock'});
+var configDB = require('./config/database.js');
 
-// Authenticator
-app.use(express.basicAuth('testUser', 'testPass'));
+// configuration ===============================================================
+mongoose.connect(configDB.url); // connect to our database
 
-app.set('port', process.env.PORT || 3000);
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-app.use(express.favicon());
-app.use(express.logger('dev'));
-app.use(express.bodyParser());
-app.use(express.methodOverride());
-app.use(app.router);
-app.use(express.static(path.join(__dirname, 'public')));
+require('./config/passport')(passport); // pass passport for configuration
 
+app.configure(function() {
 
-// routing
-app.get('/', function (req, res) {
-     res.render('index.ejs');
+	// set up our express application
+	app.use(express.logger('dev')); // log every request to the console
+	app.use(express.cookieParser()); // read cookies (needed for auth)
+	app.use(express.bodyParser()); // get information from html forms
+
+	app.set('view engine', 'ejs'); // set up ejs for templating
+  app.use(express.static(path.join(__dirname, 'public')));
+	// required for passport
+	app.use(express.session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
+	app.use(passport.initialize());
+	app.use(passport.session()); // persistent login sessions
+	app.use(flash()); // use connect-flash for flash messages stored in session
+
 });
 
-app.get('/dashboard', function (req,res) {
-  docker.containers.list(function(err,req){
-     res.render('dashboard.ejs',{containers: req});
-  });
-});
+// routes ======================================================================
+require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 
-app.get('/ssh', function (req,res) {
-  res.render('ssh.ejs');
-});
-
-app.get('/containers/:id',function(req,res){
-    console.log('INSPECT CONTAINER WITH ID '+req.params.id);
-    docker.containers.inspect(req.params.id,function(err,req){
-      res.render('containers/show.ejs',{container: req});
-    });
-  });
-
-
-//for api test purposes
+//for api test purposes ========================================================
 
 docker.info(function(err,res){
   console.log(res);
 });
 
-//socket functions
+//socket functions =============================================================
 io.sockets.on('connection', function(socket){
 
   socket.on('sshkey', function(data){
@@ -91,6 +87,6 @@ io.sockets.on('connection', function(socket){
 });
 
 
-server.listen(app.get('port'));
-console.log('HarborJS listening on port ' + app.get('port'));
-
+// launch ======================================================================
+server.listen(port);
+console.log('The magic happens on port ' + port);
