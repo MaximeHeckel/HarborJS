@@ -57,6 +57,7 @@
          <h1>App list</h1>
          <!--<div id=containerList></div>-->
          <br/>
+	<div class="panel panel-default">
           <table class="table">
                   <thead>
                     <tr>
@@ -65,8 +66,7 @@
                       <th>Action</th>
                     </tr>
                   </thead>
-                    <%for(var i=0; i<containers.length; i++){%>
-                      <div id="<%=containers[i].Id%>" class="panel panel-default">
+                    <%for(var i=0; i<containers.length; i++){%>     
                         <tbody>
                           <tr>
                             <td>
@@ -83,6 +83,7 @@
                       </div>
                     <%}%>
                 </table>
+		</div>
             </div>
         </div>
       </div>

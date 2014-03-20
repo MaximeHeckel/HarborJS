@@ -28,7 +28,7 @@
       <div class="row mt">
         <div class="col-lg-6 col-lg-offset-2">
           <div id="title">
-	   <h2><%=container.Config.Image%></h2>
+	   <h2><%=container.Config.Image %></h2>
 	  </div>
           <hr/>
           <br/>
@@ -45,6 +45,9 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script>
       var socket = io.connect('/');
+      var containerImage = container.Config.Image;
+      var appName =containerImage.substr(0, containerImage.indexOf(':'));
+      console.log(appName);   
     </script>
   </body>
 </html>
