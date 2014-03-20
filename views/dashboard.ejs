@@ -56,10 +56,8 @@
         <br/>
          <h1>App list</h1>
          <!--<div id=containerList></div>-->
-          <br/>
-            <%for(var i=0; i<containers.length; i++){%>
-              <div id="<%=containers[i].Id%>" class="panel panel-default">
-                <table class="table">
+         <br/>
+          <table class="table">
                   <thead>
                     <tr>
                       <th>Name</th>
@@ -67,23 +65,25 @@
                       <th>Action</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <a href="/containers/<%=containers[i].Id%>" id="<%=containers[i].Id%>" onclick="sendId(this)"><%=containers[i].Image%></a>
-                      </td>
-                      <td>
-                        <%=containers[i].Status%>
-                      </td>
-                      <td>
-                        <input type="submit" class="btn btn-danger" value="Delete app" id="<%=containers[i].Id%>" onclick="deleteContainer(this)"></input>
-                      </td>
-                    </tr>
-                  </tbody>
+                    <%for(var i=0; i<containers.length; i++){%>
+                      <div id="<%=containers[i].Id%>" class="panel panel-default">
+                        <tbody>
+                          <tr>
+                            <td>
+                              <a href="/containers/<%=containers[i].Id%>" id="<%=containers[i].Id%>" onclick="sendId(this)"><%=containers[i].Image%></a>
+                            </td>
+                            <td>
+                              <%=containers[i].Status%>
+                            </td>
+                            <td>
+                              <input type="submit" class="btn btn-danger" value="Delete app" id="<%=containers[i].Id%>" onclick="deleteContainer(this)"></input>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </div>
+                    <%}%>
                 </table>
-              </div>
-            <%}%>
-          </div>
+            </div>
         </div>
       </div>
     <script src="/socket.io/socket.io.js"></script>
