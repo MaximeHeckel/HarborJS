@@ -60,16 +60,25 @@
             <%for(var i=0; i<containers.length; i++){%>
               <div id="<%=containers[i].Id%>" class="panel panel-default">
                 <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>State</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
                   <tbody>
-                    <td>
-                      <a href="/containers/<%=containers[i].Id%>" id="<%=containers[i].Id%>" onclick="sendId(this)"><%=containers[i].Image%></a>
-                    </td>
-                    <td>
-                      <%=containers[i].Status%>
-                    </td>
-                    <td>
-                      <input type="submit" class="btn btn-danger" value="Delete app" id="<%=containers[i].Id%>" onclick="deleteContainer(this)"></input>
-                    </td>
+                    <tr>
+                      <td>
+                        <a href="/containers/<%=containers[i].Id%>" id="<%=containers[i].Id%>" onclick="sendId(this)"><%=containers[i].Image%></a>
+                      </td>
+                      <td>
+                        <%=containers[i].Status%>
+                      </td>
+                      <td>
+                        <input type="submit" class="btn btn-danger" value="Delete app" id="<%=containers[i].Id%>" onclick="deleteContainer(this)"></input>
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
