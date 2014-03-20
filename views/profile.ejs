@@ -19,39 +19,57 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right cl-effect-13">
-            <li><a href="/dashboard">DASHBOARD</a></li>
-            <li><a href="/ssh">SSH-KEY</a></li>
-            <li><a href="#">LOGOUT</a></li>
+            <li><a href="/dashboard">Dashboard</a></li>
+            <li><a href="/profile">Account</a></li>
+            <li><a href="/logout">Logout</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
     </div>
-<div class="container">
-  <div class="page-header text-center">
-    <h1><span class="fa fa-anchor"></span> Profile Page</h1>
-  <a href="/logout" class="btn btn-default btn-sm">Logout</a>
-  </div>
-
-  <div class="row">
-
-  <!-- LOCAL INFORMATION -->
-    <div class="col-sm-6">
-      <div class="well">
-        <h3><span class="fa fa-user"></span> Local</h3>
-
-        <% if (user.local.email) { %>
-          <p>
-            <strong>id</strong>: <%= user._id %><br>
-            <strong>email</strong>: <%= user.local.email %><br>
-            <strong>password</strong>: <%= user.local.password %>
-          </p>
-
-        <a href="/unlink/local" class="btn btn-default">Unlink</a>
-        <% } else { %>
-        <a href="/connect/local" class="btn btn-default">Connect Local</a>
-        <% } %>
+    <div class="container pt">
+      <div class="page-header text-center">
+        <h2>Your Profile</h2>
       </div>
+      <div class="row mt">
+        <div class="col-lg-8 col-lg-offset-2">
+          <div class="well">
+            <h3><span class="fa fa-user"></span> Account information</h3>
+
+            <% if (user.local.email) { %>
+            <p>
+              <strong>id</strong>: <%= user._id %><br>
+              <strong>email</strong>: <%= user.local.email %><br>
+            </p>
+
+            <a href="/unlink/local" class="btn btn-default">Unlink Account</a>
+              <% } else { %>
+            <a href="/connect/local" class="btn btn-default">Connect Local</a>
+          <% } %>
+        </div>
+        <h3><span class="fa fa-lock"></span> SSH-KEY</h3>
+        <br/>
+        <textarea id="ssh" type="text" name="sshinput" class="form-control" rows="6" placeholder="Enter your ssh key here"></textarea>
+        <br/>
+        <input id="sshsub"  class="btn btn-success" type="submit" onclick="sendkey()"></input>
     </div>
-</div>
+  </div>
+  <script src="/socket.io/socket.io.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>
+      var socket = io.connect('/');
+      function teststring(mystr){
+        if(mystr.match(/[;|""|'']/)){
+          console.log("Error");
+          return false;
+        }
+        return true;
+      }
+      function sendkey(){
+          var mysshkey = document.getElementById('ssh').value;
+          if(teststring(mysshkey)){
+            socket.emit('sshkey',mysshkey);
+          }
+      }
+    </script>
 </body>
 </html>
