@@ -1,0 +1,3 @@
+var User  = require('../app/models/user');
+var App   = require('../app/models/app);
+
