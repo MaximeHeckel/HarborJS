@@ -97,7 +97,7 @@ module.exports = function(app, passport) {
 		user.local.username    = undefined;
 		user.local.password = undefined;
 		user.save(function(err) {
-			res.redirect('/profile');
+			res.redirect('/');
 		});
 	});
 };
