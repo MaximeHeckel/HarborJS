@@ -31,15 +31,15 @@ module.exports = function(passport) {
     // =========================================================================
     passport.use('local-login', new LocalStrategy({
         // by default, local strategy uses username and password, we will override with email
-        usernameField : 'email',
+        usernameField : 'username',
         passwordField : 'password',
         passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
     },
-    function(req, email, password, done) {
+    function(req, username, password, done) {
 
         // asynchronous
         process.nextTick(function() {
-            User.findOne({ 'local.email' :  email }, function(err, user) {
+            User.findOne({ 'local.username' :  username }, function(err, user) {
                 // if there are any errors, return the error
                 if (err)
                     return done(err);
@@ -64,30 +64,29 @@ module.exports = function(passport) {
     // =========================================================================
     passport.use('local-signup', new LocalStrategy({
         // by default, local strategy uses username and password, we will override with email
-        usernameField : 'email',
+        usernameField : 'username',
         passwordField : 'password',
         passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
     },
-    function(req, email, password, done) {
+    function(req, username, password, done) {
 
         // asynchronous
         process.nextTick(function() {
             // check if the user is already logged ina
             if (!req.user) {
-                User.findOne({ 'local.email' :  email }, function(err, user) {
+                User.findOne({ 'local.username' :  username }, function(err, user) {
                     // if there are any errors, return the error
                     if (err)
                         return done(err);
 
                     // check to see if theres already a user with that email
                     if (user) {
-                        return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
+                        return done(null, false, req.flash('signupMessage', 'That username is already taken.'));
                     } else {
 
                         // create the user
                         var newUser            = new User();
-
-                        newUser.local.email    = email;
+                        newUser.local.username    = username;
                         newUser.local.password = newUser.generateHash(password);
 
                         newUser.save(function(err) {
@@ -102,7 +101,7 @@ module.exports = function(passport) {
             } else {
 
                 var user            = req.user;
-                user.local.email    = email;
+                user.local.username    = username;
                 user.local.password = user.generateHash(password);
                 user.save(function(err) {
                     if (err)

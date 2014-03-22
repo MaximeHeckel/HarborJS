@@ -70,7 +70,7 @@
                     <% apps.forEach(function(app){%>
                       <tbody>
                         <tr>
-                          <%if(app.user == user.local.email && app.name == containers[i].Image){%>
+                          <%if(app.user == user.local.username && app.name == containers[i].Image){%>
                             <td>
                               <a href="/containers/<%=containers[i].Id%>" id="<%=containers[i].Id%>" onclick="sendId(this)"><%=containers[i].Image%></a>
                             </td>
