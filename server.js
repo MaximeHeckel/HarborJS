@@ -88,4 +88,4 @@ io.sockets.on('connection', function(socket){
 
 // launch ======================================================================
 server.listen(port);
-console.log('The magic happens on port ' + port);
+console.log('HarborJS is running on port ' + port);
