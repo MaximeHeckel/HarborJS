@@ -46,6 +46,19 @@
               <% } else { %>
             <a href="/connect/local" class="btn btn-default">Connect Local</a>
           <% } %>
+	  <br/>
+	  <h3>Register App</h3>
+          <form action="/create" method="post">
+	    <div class="form-group">
+	      <label>app name</label>
+	      <input type="text" class="form-control" name="name"/><br>
+	    </div>
+	    <div class="form-group">
+	      <label>username</label>
+	      <input type="text" class="form-control" name="user"/><br>
+            </div>
+	    <button type="submit" class="btn btn-success">Register</button>
+	  </form>
         </div>
         <h3><span class="fa fa-lock"></span> SSH-KEY</h3>
         <br/>

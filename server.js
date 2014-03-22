@@ -14,7 +14,6 @@ var server = http.createServer(app);
 var io = require('socket.io').listen(server);
 var docker = require('docker.io')({ socketPath:'/var/run/docker.sock'});
 var configDB = require('./config/database.js');
-
 // configuration ===============================================================
 mongoose.connect(configDB.url); // connect to our database
 

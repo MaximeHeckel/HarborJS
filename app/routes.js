@@ -1,9 +1,10 @@
 var docker = require('docker.io')({ socketPath:'/var/run/docker.sock'});
+var config = require('../config/application.js');
 module.exports = function(app, passport) {
 
 // normal routes ===============================================================
 
-	// show the home page (will also have our login links)
+	// show the home page
 	app.get('/', function(req, res) {
 		res.render('index.ejs');
 	});
@@ -38,6 +39,11 @@ module.exports = function(app, passport) {
 		req.logout();
 		res.redirect('/');
 	});
+
+// app routes ===============================================================
+
+  app.post( '/create', config.create );
+
 
 // =============================================================================
 // AUTHENTICATE (FIRST LOGIN) ==================================================
