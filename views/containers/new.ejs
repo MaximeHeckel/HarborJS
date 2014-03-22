@@ -47,11 +47,5 @@
     </div>
     <script src="../socket.io/socket.io.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script>
-      var socket = io.connect('/');
-      var containerImage = container.Config.Image;
-      var appName =containerImage.substr(0, containerImage.indexOf(':'));
-      console.log(appName);   
-    </script>
   </body>
 </html>

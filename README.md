@@ -11,8 +11,8 @@ This project aims to provide a full Web interface for dokku and also session man
 - Attach container (soon)
 - Send command to container (soon)
 - List all running apps
-- List apps per user (soon)
+- List apps per user 
 - Link DB with app
-- App Deletion
+- App Deletion (need to drop app)
 - Start/Pause/Destroy App (soon)
 

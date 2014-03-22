@@ -44,8 +44,8 @@ module.exports = function(app, passport) {
   });
 
 // app routes ===============================================================
-  app.get('/containers/new', function(req,res){
-    res.render('containers/new.ejs',{user : req.user});
+  app.get('/new', function(req,res){
+    res.render('containers/new.ejs', {user : req.user});
   });
 
   app.post( '/create', config.create );
