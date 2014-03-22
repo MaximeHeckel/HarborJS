@@ -39,31 +39,21 @@
             <p>
               <strong>id</strong>: <%= user._id %><br>
               <strong>username</strong>: <%= user.local.username %><br>
-	      <strong>apps</strong> : <%= user.local.apps %><br>
             </p>
 
             <a href="/unlink/local" class="btn btn-default">Unlink Account</a>
               <% } else { %>
             <a href="/connect/local" class="btn btn-default">Connect Local</a>
           <% } %>
-	  <br/>
-	  <h3>Register App</h3>
-          <form action="/create" method="post">
-	    <div class="form-group">
-	      <label>app name</label>
-	      <input type="text" class="form-control" name="name"/><br>
-	    </div>
-	    <div class="form-group">
-	      <label>username</label>
-	      <input type="text" class="form-control" name="user"/><br>
-            </div>
-	    <button type="submit" class="btn btn-success">Register</button>
-	  </form>
+          <br>
+          <form action="/new">
+            <input type="submit" value="Create new app/db">
+          </form>
         </div>
         <h3><span class="fa fa-lock"></span> SSH-KEY</h3>
-        <br/>
+        <br>
         <textarea id="ssh" type="text" name="sshinput" class="form-control" rows="6" placeholder="Enter your ssh key here"></textarea>
-        <br/>
+        <br>
         <input id="sshsub"  class="btn btn-success" type="submit" onclick="sendkey()"></input>
     </div>
   </div>
