@@ -1,6 +1,6 @@
 var docker = require('docker.io')({ socketPath:'/var/run/docker.sock'});
 var config = require('../config/application.js');
-var App       = require('../app/models/apps');
+var App    = require('../app/models/apps');
 module.exports = function(app, passport) {
 
 // normal routes ===============================================================

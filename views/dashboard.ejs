@@ -26,11 +26,6 @@
     </div>
     <div class="container pt">
       <div class="row mt">
-	<p><%= user.local.email %></p>
-	<% apps.forEach(function(app){%>
-     	   	<p><%=app.name %></p>
-		<p><%=app.user %></p>
-        <% }); %>
         <div class="col-lg-8 col-lg-offset-2 centered">
           <div id=containerCreate>
             <div class="col-lg-2">
@@ -62,8 +57,8 @@
          <h1>App list</h1>
          <!--<div id=containerList></div>-->
          <br/>
-	<div class="panel panel-default">
-          <table class="table">
+          <div class="panel panel-default">
+            <table class="table">
                   <thead>
                     <tr>
                       <th>Name</th>
@@ -71,9 +66,11 @@
                       <th>Action</th>
                     </tr>
                   </thead>
-                    <%for(var i=0; i<containers.length; i++){%>     
-			<tbody>
-                          <tr>
+                  <%for(var i=0; i<containers.length; i++){%>
+                    <% apps.forEach(function(app){%>
+                      <tbody>
+                        <tr>
+                          <%if(app.user == user.local.email && app.name == container[i].Image){%>
                             <td>
                               <a href="/containers/<%=containers[i].Id%>" id="<%=containers[i].Id%>" onclick="sendId(this)"><%=containers[i].Image%></a>
                             </td>
@@ -83,12 +80,14 @@
                             <td>
                               <input type="submit" class="btn btn-danger" value="Delete app" id="<%=containers[i].Id%>" onclick="deleteContainer(this)"></input>
                             </td>
+                            <%}%>
                           </tr>
                         </tbody>
-			<%}%>
-                      </div>
+                      <%})%>
+                    <%}%>
+                  </div>
                 </table>
-		</div>
+              </div>
             </div>
         </div>
       </div>
@@ -100,7 +99,7 @@
         function deleteContainer(item){
           var idcont = $(item).attr("id");
           socket.emit('containerId',idcont);
-	  window.setTimeout('location.reload()', 1000);
+          window.setTimeout('location.reload()', 1000);
         }
 
         function sendId(item){
@@ -112,14 +111,14 @@
           var dbName = document.getElementById('dbname').value;
           var dbType = document.getElementById('dbtype').value;
           socket.emit('dbCreate', {name: dbName, type: dbType});
-	  window.setTimeout('location.reload()', 1000);
+          window.setTimeout('location.reload()', 1000);
         }
 
         function dbLink(){
           var appname = document.getElementById('linkapp').value;
           var dbname = document.getElementById('linkdb').value;
           socket.emit('dbLink',{appName:appname, dbName: dbname});
-	  window.setTimeout('location.reload()', 3000);
+          window.setTimeout('location.reload()', 3000);
         }
       </script>
   </body>
