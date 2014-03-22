@@ -1,5 +1,6 @@
 var docker = require('docker.io')({ socketPath:'/var/run/docker.sock'});
 var config = require('../config/application.js');
+var App       = require('../app/models/apps');
 module.exports = function(app, passport) {
 
 // normal routes ===============================================================
@@ -16,10 +17,12 @@ module.exports = function(app, passport) {
 		});
 	});
 
-  app.get('/dashboard', function (req,res) {
-    docker.containers.list(function(err,req){
-     res.render('dashboard.ejs',{containers: req});
+  app.get('/dashboard', isLoggedIn,  function (req,res) {
+    docker.containers.list(function(err,cont){
+     App.find(function (warn, apps, count){
+       res.render('dashboard.ejs',{apps: apps, containers: cont, user : req.user});
     });
+   });
   });
 
   app.get('/ssh', isLoggedIn ,function (req,res) {

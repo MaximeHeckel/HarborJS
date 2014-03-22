@@ -26,6 +26,11 @@
     </div>
     <div class="container pt">
       <div class="row mt">
+	<p><%= user.local.email %></p>
+	<% apps.forEach(function(app){%>
+     	   	<p><%=app.name %></p>
+		<p><%=app.user %></p>
+        <% }); %>
         <div class="col-lg-8 col-lg-offset-2 centered">
           <div id=containerCreate>
             <div class="col-lg-2">

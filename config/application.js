@@ -9,3 +9,8 @@ exports.create = function(req, res){
     res.redirect('/profile')
   });
 };
+
+/*exports.show = function(req,res){
+  App.find( function(err, apps, count){
+
+};*/
