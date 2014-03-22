@@ -1,3 +1,4 @@
+<!doctype html>
 <html>
   <head>
     <meta charset="UTF-8">
@@ -28,24 +29,54 @@
       <div class="row mt">
         <div class="col-lg-6 col-lg-offset-2">
           <div class="text-centered">
-            <h3>New container</h3>
-              <h3>Register App</h3>
+              <h3>Register App/DB</h3>
+	      <hr>
                 <form action="/create" method="post">
                   <div class="form-group">
-                    <label>app name</label>
+                    <label>App/DB Name</label>
                       <input type="text" class="form-control" name="name"/><br>
                   </div>
                   <div class="form-group">
-                  <label>username</label>
+                  <label>Username</label>
                   <input type="text" class="form-control" name="user" value="<%= user.local.username%>"/><br>
                   </div>
                   <button type="submit" class="btn btn-success">Register</button>
             </form>
+	    <br>
+	    <h3>Create DB</h3>
+	    <hr>
+	    <form>
+            <div class="form-group">
+	      <label>DB Name</label>
+              <input id="dbname" class="form-control" type="text"><br>
+            </div>
+            <div class="form-group">
+              <select id="dbtype" class="form-control">
+                <option value="postgresql">PGSQL</option>
+                <option value="mysql">MySQL</option>
+                <option value="redis">Redis</option>
+              </select>
+            </div>
+	    <div class="form-group">
+              <input id="createdb" class="btn btn-success" type="submit" value="Create DB" onclick="dbCreate()"><br>
+            </div>
+	   </form>
           </div>
         </div>
       </div>
     </div>
     <script src="../socket.io/socket.io.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>
+        var socket = io.connect('/');
+
+        function dbCreate(){
+          var dbName = document.getElementById('dbname').value;
+          var dbType = document.getElementById('dbtype').value;
+          socket.emit('dbCreate', {name: dbName, type: dbType});
+          window.setTimeout('location.reload()', 1000);
+        }
+
+      </script>
   </body>
 </html>

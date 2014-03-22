@@ -6,7 +6,7 @@ exports.create = function(req, res){
 	name : req.body.name,
         user : req.body.user
   }).save(function(err, app, count){
-    res.redirect('/profile')
+    res.redirect('/new');
   });
 };
 

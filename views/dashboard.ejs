@@ -1,3 +1,4 @@
+<!doctype html>
 <html>
   <head>
     <meta charset="UTF-8">
@@ -26,36 +27,11 @@
     </div>
     <div class="container pt">
       <div class="row mt">
-        <div class="col-lg-8 col-lg-offset-2 centered">
-          <div id=containerCreate>
-            <div class="col-lg-2">
-              <input id="createdb" class="btn btn-success" type="submit" value="Create DB" onclick="dbCreate()"></input> 
-            </div>
-            <div class="col-lg-2">
-              <input id="dbname" class="form-control" type="text" placeholder="DB Name"></input>
-            </div>
-            <div class="col-lg-2">
-              <select id="dbtype" class="form-control">
-                <option value="postgresql">PGSQL</option>
-                <option value="mysql">MySQL</option>
-                <option value="redis">Redis</option>
-              </select>
-            </div>
-            <div class="col-lg-2">
-              <input id="link" class="btn btn-default" type="submit" value="Link DB/App" onclick="dbLink()"></input>
-            </div>
-            <div class="col-lg-2">
-              <input id="linkapp" class="form-control" type="text" placeholder="App Name"></input>
-            </div>
-            <div class="col-lg-2">
-              <input id="linkdb" class="form-control" type="text" placeholder="DB Name"></input>
-            </div>
-          </div>
-        </div>
-        <div class="centered col-lg-8 col-lg-offset-2">
-        <br/>
-         <h1>App list</h1>
-         <!--<div id=containerList></div>-->
+        <div class="col-lg-8 col-lg-offset-2">
+	  <div class="text-center">
+           <h2>Your Apps</h2>
+	  </div>
+	  <hr>
          <br/>
           <div class="panel panel-default">
             <table class="table">
@@ -88,6 +64,23 @@
                   </div>
                 </table>
               </div>
+	      <br>
+	      <div class="text-center">
+	     	<h3>Link DB-App</h3> 
+	     </div>
+	     <form>
+       		<div class="form-group">
+		   <label>DB Name</label>
+		   <input type="text" id="linkdb" class="form-control">
+		</div>
+		<div class="form-group">
+		   <label>App Name</label>
+		   <input type="text" id="linkapp" class="form-control">
+		</div>
+		<div class="form-group"> 
+		  <input type="submit" class="btn btn-info" Value="Link DB/APP" onclick="dbLink()">
+		</div>
+             </form>
             </div>
         </div>
       </div>
@@ -105,13 +98,6 @@
         function sendId(item){
           var idcont = $(item).attr("id");
           socket.emit('inspectId', idcont);
-        }
-
-        function dbCreate(){
-          var dbName = document.getElementById('dbname').value;
-          var dbType = document.getElementById('dbtype').value;
-          socket.emit('dbCreate', {name: dbName, type: dbType});
-          window.setTimeout('location.reload()', 1000);
         }
 
         function dbLink(){
