@@ -31,8 +31,13 @@ module.exports = function(app, passport) {
 
   app.get('/containers/:id',function(req,res){
     console.log('INSPECT CONTAINER WITH ID '+req.params.id);
-    docker.containers.inspect(req.params.id,function(err,req){
-      res.render('containers/show.ejs',{container: req});
+    docker.containers.inspect(req.params.id,function(err,requ){
+      var reqname = requ.Config.Image;
+      var name = reqname.replace('app/','').replace('postgresql/','').replace('mysql/','');
+      docker.containers.attach(req.params.id, {stream: true, stdout: true, stderr:false, tty:false}, function(err,stream) {
+        console.log(stream);
+	res.render('containers/show.ejs',{container: requ, name: name, stream: stream});
+      });
     });
   });
 

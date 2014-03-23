@@ -6,3 +6,17 @@ body.home {
   background-size: cover;
   padding-top: 200px;
 }
+
+.navbar-inverse{
+  background-color: #4A89DC;
+  border-color: #4A89DC;
+
+}
+
+.navbar-inverse .navbar-brand{
+  color: white;
+}
+
+.navbar-inverse .navbar-nav > li > a{
+  color: white;
+}

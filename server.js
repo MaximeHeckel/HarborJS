@@ -44,14 +44,10 @@ function handler(err, res) {
     if (err) throw err;
     console.log("data returned from Docker as JS object: ", res);
 };
-docker.containers.attach('8196569ecaaf2bbcf726189b60212676ad1351f6ff4df6ebe9deb4743b52e138', handler);
-docker.info(function(err,res){
-  console.log(res);
-});
 
 //socket functions =============================================================
-io.sockets.on('connection', function(socket){
-
+io.sockets.on('connection', function(socket){  
+ 
   socket.on('sshkey', function(data){
     exec('touch ssh.pub ; echo '+data+' > ssh.pub; cat ~/ssh.pub | sudo sshcommand acl-add dokku progrium', {
       user: 'root',

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>HarborJS</title>
     <link href="../css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="../css/main.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
     <div class="navbar navbar-inverse navbar-static-top">
@@ -25,11 +26,12 @@
         </div><!--/.nav-collapse -->
       </div>
     </div>
+	<%=stream%>
     <div class="container pt">
       <div class="row mt">
         <div class="col-lg-6 col-lg-offset-2">
           <div id="title">
-            <h2><%=container.Config.Image %></h2>
+            <h2><%=name%></h2>
           </div>
           <hr/>
           <br/>
@@ -39,17 +41,21 @@
             <p>Command: <%=container.Path%></p>
             <p>Arguments: <%=container.Args[0]%></p>
           </div>
+	  <br>
+	  <hr>
+	  <h4>Your app is running on :</h4>
+	  <a href="http://<%=name%>.ares-paas.eu">http://<%=name%>.ares-paas.eu</a>
         </div>
       </div>
     </div>
     <script src="../socket.io/socket.io.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script>
-      var socket = io.connect('/');
-      var containerImage = container.Config.Image;
-      var appName =containerImage.substr(0, containerImage.indexOf(':'));
-      console.log(appName);
+	var socket = io.connect('/');
+       socket.on('logs',function(data){
+	  console.log(data);
+	});
     </script>
   </body>
 </html>
