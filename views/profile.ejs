@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-	<title>HarborJS</title>
+  <title>HarborJS</title>
   <!--<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">-->
   <link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
@@ -29,58 +29,58 @@
     <div class="container pt">
       <div class="row mt">
         <div class="col-lg-8 col-lg-offset-2">
-	 <div class="text-center">
-	   <h2>Your Profile</h2>
-	 </div>
-	 <hr>
-          <div class="well">
-            <h3><span class="fa fa-user"></span> Account information</h3>
-
-            <% if (user.local.username) { %>
-            <p>
-              <strong>id</strong>: <%= user._id %><br>
-              <strong>username</strong>: <%= user.local.username %><br>
-            </p>
-	  <div class="col-lg-3">
-            <a href="/unlink/local" class="btn btn-warning">Unlink Account</a>
-	  </div>
-          <% } %>
-	  <div class="col-lg-3">
-            <form action="/new">
-              <input type="submit" class="btn btn-success" value="Create new app/db">
-            </form>
-	  </div>
-	  <div class="col-lg-3">
-	    <form action="/delete">
-	      <input type="submit" class="btn btn-danger" value="Delete app/db">
-	    </form>	
+          <div class="text-center">
+            <h2>Your Profile</h2>
           </div>
-	<br>
-	<br>
-        <h3><span class="fa fa-lock"></span> SSH-KEY</h3>
-        <br>
-        <textarea id="ssh" type="text" name="sshinput" class="form-control" rows="6" placeholder="Enter your ssh key here"></textarea>
-        <br>
-        <input id="sshsub"  class="btn btn-success" type="submit" onclick="sendkey()"></input>
-    </div>
-  </div>
-  <script src="/socket.io/socket.io.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script>
-      var socket = io.connect('/');
-      function teststring(mystr){
-        if(mystr.match(/[;|""|'']/)){
-          console.log("Error");
-          return false;
+          <hr>
+          <h3><span class="fa fa-user"></span> Account information</h3>
+             <% if (user.local.username) { %>
+               <p>
+               	 <strong>id</strong>: <%= user._id %><br>
+                 <strong>username</strong>: <%= user.local.username %><br>
+               </p>
+               <div class="col-lg-3">
+                 <a href="/unlink/local" class="btn btn-warning">Unlink Account</a>
+               </div>
+             <% } %>
+            <div class="col-lg-3">
+                  <form action="/new">
+                    <input type="submit" class="btn btn-success" value="Create new app/db">
+                  </form>
+                </div>
+                <div class="col-lg-3">
+                  <form action="/delete">
+                    <input type="submit" class="btn btn-danger" value="Delete app/db">
+                  </form>
+                </div>
+                <br>
+                <br>
+                <h3><span class="fa fa-lock"></span> SSH-KEY</h3>
+                <br>
+                <textarea id="ssh" type="text" name="sshinput" class="form-control" rows="6" placeholder="Enter your ssh key here"></textarea>
+                <br>
+                <input id="sshsub"  class="btn btn-success" type="submit" onclick="sendkey()"></input>
+          </div>
+        </div>
+      </div>
+      <script src="/socket.io/socket.io.js"></script>
+      <script src="js/bootstrap.min.js"></script>
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+      <script>
+        var socket = io.connect('/');
+        function teststring(mystr){
+          if(mystr.match(/[;|""|'']/)){
+            console.log("Error");
+            return false;
+          }
+          return true;
         }
-        return true;
-      }
-      function sendkey(){
+        function sendkey(){
           var mysshkey = document.getElementById('ssh').value;
           if(teststring(mysshkey)){
             socket.emit('sshkey',mysshkey);
           }
-      }
-    </script>
-</body>
+        }
+      </script>
+    </body>
 </html>

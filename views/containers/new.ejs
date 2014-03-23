@@ -34,7 +34,7 @@
                 <form action="/create" method="post">
                   <div class="form-group">
                     <label>App/DB Name</label>
-                      <input type="text" class="form-control" name="name"/><br>
+                      <input type="text" class="form-control" name="name" placeholder="app/APPNAME:latest"/><br>
                   </div>
                   <div class="form-group">
                   <label>Username</label>
@@ -42,41 +42,40 @@
                   </div>
                   <button type="submit" class="btn btn-success">Register</button>
             </form>
-	    <br>
-	    <h3>Create DB</h3>
-	    <hr>
-	    <form>
+            <br>
+            <h3>Create DB</h3>
+            <hr>
+            <form>
+              <div class="form-group">
+                <label>DB Name</label>
+                <input id="dbname" class="form-control" type="text"><br>
+              </div>
+              <div class="form-group">
+                <select id="dbtype" class="form-control">
+                  <option value="postgresql">PGSQL</option>
+                  <option value="mysql">MySQL</option>
+                  <option value="redis">Redis</option>
+                </select>
+              </div>
             <div class="form-group">
-	      <label>DB Name</label>
-              <input id="dbname" class="form-control" type="text"><br>
-            </div>
-            <div class="form-group">
-              <select id="dbtype" class="form-control">
-                <option value="postgresql">PGSQL</option>
-                <option value="mysql">MySQL</option>
-                <option value="redis">Redis</option>
-              </select>
-            </div>
-	    <div class="form-group">
               <input id="createdb" class="btn btn-success" type="submit" value="Create DB" onclick="dbCreate()"><br>
             </div>
-	   </form>
+           </form>
           </div>
         </div>
       </div>
     </div>
     <script src="../socket.io/socket.io.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script>
         var socket = io.connect('/');
-
         function dbCreate(){
           var dbName = document.getElementById('dbname').value;
           var dbType = document.getElementById('dbtype').value;
           socket.emit('dbCreate', {name: dbName, type: dbType});
           window.setTimeout('location.reload()', 1000);
         }
-
       </script>
   </body>
 </html>
