@@ -40,7 +40,11 @@ app.configure(function() {
 require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 
 //for api test purposes ========================================================
-
+function handler(err, res) {
+    if (err) throw err;
+    console.log("data returned from Docker as JS object: ", res);
+};
+docker.containers.attach('8196569ecaaf2bbcf726189b60212676ad1351f6ff4df6ebe9deb4743b52e138', handler);
 docker.info(function(err,res){
   console.log(res);
 });
