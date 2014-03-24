@@ -19,6 +19,14 @@ exports.createdb = function(req,res){
   });
 };
 
+exports.destroy = function(req, res){
+  App.findById( req.params.id, function(err, app){
+       app.remove(function(err, app){
+         res.redirect('/dashboard');
+    });
+  })
+};
+
 /*exports.show = function(req,res){
   App.find( function(err, apps, count){
 

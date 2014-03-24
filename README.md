@@ -13,6 +13,6 @@ This project aims to provide a full Web interface for dokku and also session man
 - List all running apps
 - List apps per user 
 - Link DB with app
-- App Deletion (need to drop app)
+- App Deletion 
 - Start/Pause/Destroy App (soon)
 

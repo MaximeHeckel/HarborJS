@@ -55,8 +55,10 @@
                               <%=containers[i].Status%>
                             </td>
                             <td>
-                              <input type="submit" class="btn btn-danger" value="Delete app" id="<%=containers[i].Id%>" onclick="deleteContainer(this)"></input>
-                            </td>
+			      <form action="/destroy/<%= app._id %>">
+                                <input type="submit" class="btn btn-danger" value="Delete app" id="<%=containers[i].Id%>" onclick="deleteContainer(this)"></input>
+                              </form>
+			    </td>
                             <%}%>
                           </tr>
                         </tbody>
