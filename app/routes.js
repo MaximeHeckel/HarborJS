@@ -54,6 +54,8 @@ module.exports = function(app, passport) {
   });
 
   app.post( '/create', config.create );
+  
+  app.post('/createdb', config.createdb);
 
 
 // =============================================================================

@@ -30,36 +30,41 @@
       <div class="row mt">
         <div class="col-lg-6 col-lg-offset-2">
           <div class="text-centered">
-              <h3>Register App/DB</h3>
+              <h3>Register App</h3>
 	      <hr>
                 <form action="/create" method="post">
                   <div class="form-group">
-                    <label>App/DB Name</label>
-                      <input type="text" class="form-control" name="name" placeholder="app/APPNAME:latest"/><br>
+                    <label>App Name</label>
+                      <input type="text" class="form-control" name="name"/><br>
                   </div>
                   <div class="form-group">
                   <label>Username</label>
                   <input type="text" class="form-control" name="user" value="<%= user.local.username%>"/><br>
                   </div>
-                  <button type="submit" class="btn btn-success">Register</button>
+                  <button type="submit" class="btn btn-info">Register</button>
             </form>
             <br>
             <h3>Create DB</h3>
             <hr>
-            <form>
+            <form action="/createdb" method="post">
               <div class="form-group">
                 <label>DB Name</label>
-                <input id="dbname" class="form-control" type="text"><br>
+                <input id="dbname" class="form-control" type="text" name="name"><br>
               </div>
               <div class="form-group">
-                <select id="dbtype" class="form-control">
+	        <label>Type</label>
+                <select id="dbtype" class="form-control" name="type">
                   <option value="postgresql">PGSQL</option>
                   <option value="mysql">MySQL</option>
                   <option value="redis">Redis</option>
                 </select>
               </div>
+	      <div class="form-group">
+	     	<label>Username</label>
+		<input type="text" class="form-control" name="user" value="<%= user.local.username%>"/><br>
+              </div>
             <div class="form-group">
-              <input id="createdb" class="btn btn-success" type="submit" value="Create DB" onclick="dbCreate()"><br>
+              <input id="createdb" class="btn btn-info" type="submit" value="Create DB" onclick="dbCreate()"><br>
             </div>
            </form>
           </div>
@@ -67,8 +72,8 @@
       </div>
     </div>
     <script src="../socket.io/socket.io.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
     <script>
         var socket = io.connect('/');
         function dbCreate(){

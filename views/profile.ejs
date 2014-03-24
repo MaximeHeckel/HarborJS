@@ -41,12 +41,12 @@
                  <strong>username</strong>: <%= user.local.username %><br>
                </p>
                <div class="col-lg-3">
-                 <a href="/unlink/local" class="btn btn-warning">Unlink Account</a>
+                 <a href="/unlink/local" class="btn btn-danger">Unlink Account</a>
                </div>
              <% } %>
                 <div class="col-lg-3">
                   <form action="/new">
-                    <input type="submit" class="btn btn-success" value="Create new app/db">
+                    <input type="submit" class="btn btn-info" value="Create new app/db">
                   </form>
                 </div>
                 <div class="col-lg-3">
@@ -60,14 +60,14 @@
                 <br>
                 <textarea id="ssh" type="text" name="sshinput" class="form-control" rows="6" placeholder="Enter your ssh key here"></textarea>
                 <br>
-                <input id="sshsub"  class="btn btn-success" type="submit" onclick="sendkey()"></input>
+                <input id="sshsub"  class="btn btn-info" type="submit" onclick="sendkey()"></input>
             </div>
           </div>
         </div>
       </div>
       <script src="/socket.io/socket.io.js"></script>
-      <script src="js/bootstrap.min.js"></script>
       <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+      <script src="js/bootstrap.min.js"></script>
       <script>
         var socket = io.connect('/');
         function teststring(mystr){
