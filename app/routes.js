@@ -29,7 +29,7 @@ module.exports = function(app, passport) {
     res.render('ssh.ejs');
   });
 
-  app.get('/containers/:id',function(req,res){
+  app.get('/containers/:id', isLoggedIn,function(req,res){
     console.log('INSPECT CONTAINER WITH ID '+req.params.id);
     docker.containers.inspect(req.params.id,function(err,requ){
       var reqname = requ.Config.Image;

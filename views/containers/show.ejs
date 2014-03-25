@@ -26,7 +26,6 @@
         </div><!--/.nav-collapse -->
       </div>
     </div>
-	<%=stream%>
     <div class="container pt">
       <div class="row mt">
         <div class="col-lg-6 col-lg-offset-2">
@@ -43,6 +42,11 @@
           </div>
 	  <br>
 	  <hr>
+	  <h4>Send a command</h4>
+            <input id ="command" type="text" class="form-control"/><br>
+	    <button id="<%=name%>"class="btn btn-info" onclick="sendcmd(this)">Send</button>
+	  <br>
+	  <hr>
 	  <h4>Your app is running on :</h4>
 	  <a href="http://<%=name%>.ares-paas.eu">http://<%=name%>.ares-paas.eu</a>
         </div>
@@ -53,9 +57,25 @@
     <script src="../js/bootstrap.min.js"></script>
     <script>
 	var socket = io.connect('/');
-       socket.on('logs',function(data){
+        socket.on('logs',function(data){
 	  console.log(data);
 	});
+
+	function teststring(mystr){
+          if(mystr.match(/[;|""|'']/)){
+            console.log("Error");
+            return false;
+          }
+          return true;
+        }
+
+	function sendcmd(item){
+	  var name = $(item).attr('id');
+	  var cmd = document.getElementById('command').value;
+	  if(teststring(cmd)){
+	    socket.emit('cmd',{cmd: cmd, name: name});
+	  }
+	}	
     </script>
   </body>
 </html>

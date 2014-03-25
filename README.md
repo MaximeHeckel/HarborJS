@@ -2,17 +2,10 @@
 
 This project aims to provide a full Web interface for dokku and also session management.
 
-#####Features:
+#####TODO:
 
-- User account
-- App creation
-- Database creation: Redis, MySQL, PostgreSQL ( MongoDB soon)
-- App profile page
-- Attach container (soon)
-- Send command to container (soon)
-- List all running apps
-- List apps per user 
-- Link DB with app
-- App Deletion 
-- Start/Pause/Destroy App (soon)
-
+- Send command to container 
+- Error handling
+- Stream logs to view
+- Vagrantfile
+- Doc

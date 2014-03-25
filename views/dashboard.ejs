@@ -33,7 +33,10 @@
            <h2>Your Apps</h2>
           </div>
           <hr>
-         <br/>
+          <form action="/new">
+            <input type="submit" class="btn btn-info" value="Create new app/db">
+          </form>
+          <br>
           <div class="panel panel-default">
             <table class="table">
                   <thead>
@@ -49,14 +52,14 @@
                         <tr>
                           <%if(app.user == user.local.username && app.name == containers[i].Image){%>
                             <td>
-                              <a href="/containers/<%=containers[i].Id%>" id="<%=containers[i].Id%>" onclick="sendId(this)"><%=containers[i].Image%></a>
+                              <a href="/containers/<%=containers[i].Id%>" id="<%=containers[i].Id%>"><%=containers[i].Image%></a>
                             </td>
                             <td>
                               <%=containers[i].Status%>
                             </td>
                             <td>
 			      <form action="/destroy/<%= app._id %>">
-                                <input type="submit" class="btn btn-danger" value="Delete app" id="<%=containers[i].Id%>" onclick="deleteContainer(this)"></input>
+                                <input type="submit" class="btn btn-danger" value="Delete" name="<%=app.name.substring(app.name.indexOf('/')+1).replace(':latest','')%>" id="<%=containers[i].Id%>" onclick="deleteContainer(this)"></input>
                               </form>
 			    </td>
                             <%}%>
@@ -71,6 +74,7 @@
               <div class="text-center">
                 <h3>Link DB-App</h3>
               </div>
+	      <hr>
               <form>
                 <div class="form-group">
                   <label>DB Name</label>
@@ -92,23 +96,29 @@
       <script src="js/bootstrap.min.js"></script>
       <script>
         var socket = io.connect('/');
+	
+	function teststring(mystr){
+          if(mystr.match(/[;|""|'']/)){
+            console.log("Error");
+            return false;
+          }
+          return true;
+        }
 
         function deleteContainer(item){
           var idcont = $(item).attr("id");
-          socket.emit('containerId',idcont);
+          var appname = $(item).attr("name");
+	  socket.emit('containerId',{idcont: idcont, namecont: appname});
           window.setTimeout('location.reload()', 1000);
-        }
-
-        function sendId(item){
-          var idcont = $(item).attr("id");
-          socket.emit('inspectId', idcont);
         }
 
         function dbLink(){
           var appname = document.getElementById('linkapp').value;
           var dbname = document.getElementById('linkdb').value;
-          socket.emit('dbLink',{appName:appname, dbName: dbname});
-          window.setTimeout('location.reload()', 3000);
+	  if(teststring(appname) && teststring(dbname)){
+            socket.emit('dbLink',{appName:appname, dbName: dbname});
+            window.setTimeout('location.reload()', 3000);
+	  }
         }
       </script>
   </body>

@@ -35,7 +35,7 @@
                 <form action="/create" method="post">
                   <div class="form-group">
                     <label>App Name</label>
-                      <input type="text" class="form-control" name="name"/><br>
+                      <input id="app" type="text" class="form-control" name="name" data-container="body" data-toggle="popover" data-placename="right" data-content="After registering your app, commit your repository, add the server's remote with : git remote add dokku@hostname:appname and then git push your work on that remote."/><br>
                   </div>
                   <div class="form-group">
                   <label>Username</label>
@@ -49,7 +49,7 @@
             <form action="/createdb" method="post">
               <div class="form-group">
                 <label>DB Name</label>
-                <input id="dbname" class="form-control" type="text" name="name"><br>
+                <input id="dbname" class="form-control" type="text" name="name" data-container="body" data-toggle="popover" data-placename="right" data-content="Database name and app name must be the same !"/><br>
               </div>
               <div class="form-group">
 	        <label>Type</label>
@@ -76,12 +76,32 @@
     <script src="../js/bootstrap.min.js"></script>
     <script>
         var socket = io.connect('/');
-        function dbCreate(){
+        function testname(mystr){
+	  if(!mystr.match(/[a-z,0-9]/)){
+	    console.log("Error");
+	    return false;
+	  }
+	  return true;
+	}
+	function teststring(mystr){
+          if(mystr.match(/[;|""|'']/)){
+            console.log("Error");
+            return false;
+          }
+          return true;
+        }
+   
+	function dbCreate(){
           var dbName = document.getElementById('dbname').value;
           var dbType = document.getElementById('dbtype').value;
-          socket.emit('dbCreate', {name: dbName, type: dbType});
-          window.setTimeout('location.reload()', 1000);
-        }
+          if(teststring(dbName)){
+            socket.emit('dbCreate', {name: dbName, type: dbType});
+            window.setTimeout('location.reload()', 1000);
+          }
+	}
+	
+	$('#app').popover();
+	$('#dbname').popover();
       </script>
   </body>
 </html>
