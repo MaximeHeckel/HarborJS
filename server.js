@@ -5,16 +5,22 @@
 var express  = require('express');
 var app      = express();
 var port     = process.env.PORT || 3000;
+var fs 	     = require('fs');
 var mongoose = require('mongoose');
 var passport = require('passport');
-var http = require('http');
-var path = require('path');
-var exec = require('ssh-exec');
+var http     = require('http');
+var path     = require('path');
+var exec     = require('ssh-exec');
 var flash    = require('connect-flash');
-var server = http.createServer(app);
-var io = require('socket.io').listen(server);
-var docker = require('docker.io')({ socketPath:'/var/run/docker.sock'});
+var server   = http.createServer(app);
+var io       = require('socket.io').listen(server);
+var docker   = require('docker.io')({ socketPath:'/var/run/docker.sock'});
+
+
+//config files
 var configDB = require('./config/database.js');
+var credentials = JSON.parse(fs.readFileSync('credentials.json')); 
+
 
 // configuration ===============================================================
 
@@ -50,52 +56,32 @@ function handler(err, res) {
 
 
 //socket functions =============================================================
+
 io.sockets.on('connection', function(socket){  
- 
   socket.on('sshkey', function(data){
-    exec('touch ssh.pub ; echo '+data.mysshkey+' > ssh.pub; cat ~/ssh.pub | sudo sshcommand acl-add dokku '+ data.name, {
-      user: 'root',
-      host: '127.0.0.1',
-      password: 'admin'
-    }).pipe(process.stdout);
+    exec('touch ssh.pub ; echo '+data.mysshkey+' > ssh.pub; cat ~/ssh.pub | sudo sshcommand acl-add dokku '+ data.name, credentials).pipe(process.stdout);
   });
 
   socket.on('containerId', function(data){
-    exec('docker kill '+ data.idcont +'; sudo rm -r /home/dokku/'+ data.namecont,{
-      user: 'root',
-      host: '127.0.0.1',
-      password: 'admin'
-   }).pipe(process.stdout);
+    exec('docker kill '+ data.idcont +'; sudo rm -r /home/dokku/'+ data.namecont, credentials).pipe(process.stdout);
   });
 
   socket.on('dbCreate',function(data){
     var name=data.name;
     var type=data.type;
-    exec('dokku '+type+':create '+name,{
-      user: 'root',
-      host: '127.0.0.1',
-      password: 'admin'
-    }).pipe(process.stdout);
+    exec('dokku '+type+':create '+name, credentials).pipe(process.stdout);
   });
 
   socket.on('cmd', function(data){
     var cmd=data.cmd;
     var name=data.name;
-    exec('dokku run ' + name + ' ' + cmd,{
-      user: 'root',
-      host: '127.0.0.1',
-      password: 'admin'
-    }).pipe(process.stdout);
+    exec('dokku run ' + name + ' ' + cmd, credentials).pipe(process.stdout);
   });
 
   socket.on('dbLink', function(data){
     var app=data.appName;
     var db=data.dbName;
-    exec('dokku postgresql:link '+ app +' '+ db +'; dokku mysql:link '+ app +' '+ db +'; dokku redis:link '+ app +' '+ db,{ 
-      user: 'root',
-      host: '127.0.0.1',
-      password: 'admin'
-    }).pipe(process.stdout);
+    exec('dokku postgresql:link '+ app +' '+ db +'; dokku mysql:link '+ app +' '+ db +'; dokku redis:link '+ app +' '+ db, credentials).pipe(process.stdout);
   });
 });
 

@@ -4,7 +4,7 @@ This project aims to provide a full Web interface for dokku and also session man
 
 #####TODO:
 
-- Send command to container 
+- Check if existing entry for app db
 - Error handling
 - Stream logs to view
 - Vagrantfile
