@@ -88,10 +88,10 @@ io.sockets.on('connection', function(socket){
     }).pipe(process.stdout);
   });
 
-  socket.on('apptolink', function(data){
+  socket.on('dbLink', function(data){
     var app=data.appName;
     var db=data.dbName;
-    exec('dokku postgresql:link '+ app +' '+db,{ //need function find db type
+    exec('dokku postgresql:link '+ app +' '+ db +'; dokku mysql:link '+ app +' '+ db +'; dokku redis:link '+ app +' '+ db,{ 
       user: 'root',
       host: '127.0.0.1',
       password: 'admin'
