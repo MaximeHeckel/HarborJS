@@ -10,6 +10,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var http     = require('http');
 var path     = require('path');
+var flash    = require('connect-flash');
 var server   = http.createServer(app);
 var io       = require('socket.io').listen(server);
 var docker   = require('docker.io')({ socketPath:'/var/run/docker.sock'});
