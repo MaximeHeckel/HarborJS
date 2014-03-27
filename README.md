@@ -1,10 +1,9 @@
 #HarborJS
----
+
 This project aims to provide a full web interface for [dokku](https://github.com/progrium/dokku) and session management.
-<br>
-<br>
+
 ##Requirements
----
+
 In order to run HarborJS you will need :
 
 - Ubuntu 13 or 12.04 x64 
@@ -19,7 +18,7 @@ In order to run HarborJS you will need :
 
 
 ##Installing and configuring
----
+
 
 First clone the repository
 
@@ -51,7 +50,7 @@ sudo node server.js
 ```
 
 ##Features
----
+
 
 HarborJS has been build to provide user sessions and web interface for managing apps and databases for dokku.
 
@@ -73,7 +72,7 @@ HarborJS has been build to provide user sessions and web interface for managing 
 
 
 ##How to use it
----
+
 
 Let's deploy an app with HarborJS
 
@@ -103,11 +102,8 @@ If you want to create a database just click on the **Create new app/db** button,
 ######Note: 
 <strong>HarborJS comes with PostgreSQL, MySQL, and Redis built in. You will need to install the corresponding dokku plugins in order to make them work. In order to add your own database type you need ( at least for the moment ) to it directly into the code of the project</strong> 
 
-<br>
-<br>
-
 ##TODO:
----
+
 
 - Registering new app : check if the name of the app already exists
 
@@ -120,3 +116,8 @@ If you want to create a database just click on the **Create new app/db** button,
 - Chef Recipe : That would be great
 
 - Documentation : Doc and Tutorials, or even a wiki with step by step guides in order to explain how to deploy all sorts of apps ( with all kinds of databases )
+
+
+##License
+
+MIT
