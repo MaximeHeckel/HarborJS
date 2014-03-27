@@ -1,6 +1,6 @@
 #HarborJS
 ---
-This project aims to provide a full Web interface for [dokku](https://github.com/progrium/dokku) and session management.
+This project aims to provide a full web interface for [dokku](https://github.com/progrium/dokku) and session management.
 <br>
 <br>
 ##Requirements
