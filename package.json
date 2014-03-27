@@ -1,5 +1,5 @@
 {
-  "name": "node-authentication",
+  "name": "HarborJS",
   "main": "server.js",
   "dependencies" : {
     "express" : "latest", 			
