@@ -41,15 +41,15 @@
             <p>Command: <%=container.Path%></p>
             <p>Arguments: <%=container.Args[0]%></p>
           </div>
-	  <br>
-	  <hr>
-	  <h4><span class="fa fa-terminal"></span> Send a command</h4>
-            <input id ="command" type="text" class="form-control"/><br>
-	    <button id="<%=name%>"class="btn btn-info" onclick="sendcmd(this)">Send</button>
-	  <br>
-	  <hr>
-	  <h4>Your app is running on :</h4>
-	  <a href="http://<%=name%>.ares-paas.eu">http://<%=name%>.ares-paas.eu</a>
+          <br>
+          <hr>
+          <h4><span class="fa fa-terminal"></span> Send a command</h4>
+          <input id ="command" type="text" class="form-control"/><br>
+          <button id="<%=name%>"class="btn btn-info" onclick="sendcmd(this)">Send</button>
+          <br>
+          <hr>
+          <h4>Your app is running on :</h4>
+          <a href="http://<%=name%>.ares-paas.eu">http://<%=name%>.ares-paas.eu</a>
         </div>
       </div>
     </div>
@@ -57,12 +57,13 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
     <script>
-	var socket = io.connect('/');
-        socket.on('logs',function(data){
-	  console.log(data);
-	});
+      var socket = io.connect('/');
 
-	function teststring(mystr){
+      socket.on('logs',function(data){
+        console.log(data);
+      });
+
+      function teststring(mystr){
           if(mystr.match(/[;|""|'']/)){
             console.log("Error");
             return false;
@@ -70,13 +71,13 @@
           return true;
         }
 
-	function sendcmd(item){
-	  var name = $(item).attr('id');
-	  var cmd = document.getElementById('command').value;
-	  if(teststring(cmd)){
-	    socket.emit('cmd',{cmd: cmd, name: name});
-	  }
-	}	
+      function sendcmd(item){
+        var name = $(item).attr('id');
+        var cmd = document.getElementById('command').value;
+        if(teststring(cmd)){
+          socket.emit('cmd',{cmd: cmd, name: name});
+        }
+      }
     </script>
   </body>
 </html>

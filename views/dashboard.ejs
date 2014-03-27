@@ -59,10 +59,10 @@
                               <%=containers[i].Status%>
                             </td>
                             <td>
-			      <form action="/destroy/<%= app._id %>">
+                              <form action="/destroy/<%= app._id %>">
                                 <input type="submit" class="btn btn-danger" value="Delete" name="<%=app.name.substring(app.name.indexOf('/')+1).replace(':latest','')%>" id="<%=containers[i].Id%>" onclick="deleteContainer(this)"></input>
                               </form>
-			    </td>
+                              </td>
                             <%}%>
                           </tr>
                         </tbody>
@@ -75,7 +75,7 @@
               <div class="text-center">
                 <h3>Link DB-App</h3>
               </div>
-	      <hr>
+              <hr>
               <form>
                 <div class="form-group">
                   <label>DB Name</label>
@@ -97,8 +97,7 @@
       <script src="js/bootstrap.min.js"></script>
       <script>
         var socket = io.connect('/');
-	
-	function teststring(mystr){
+        function teststring(mystr){
           if(mystr.match(/[;|""|'']/)){
             console.log("Error");
             return false;
@@ -109,17 +108,17 @@
         function deleteContainer(item){
           var idcont = $(item).attr("id");
           var appname = $(item).attr("name");
-	  socket.emit('containerId',{idcont: idcont, namecont: appname});
+          socket.emit('containerId',{idcont: idcont, namecont: appname});
           window.setTimeout('location.reload()', 1000);
         }
 
         function dbLink(){
           var appname = document.getElementById('linkapp').value;
           var dbname = document.getElementById('linkdb').value;
-	  if(teststring(appname) && teststring(dbname)){
+          if(teststring(appname) && teststring(dbname)){
             socket.emit('dbLink',{appName: appname, dbName: dbname});
             window.setTimeout('location.reload()', 3000);
-	  }
+          }
         }
       </script>
   </body>

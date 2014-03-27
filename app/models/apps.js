@@ -4,8 +4,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var appSchema = new Schema({
-	name   : String,
-	user   : String	
+  name   : String,
+  user   : String
 });
 
 // create the model for apps and expose it to our app

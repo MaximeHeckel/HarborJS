@@ -37,19 +37,19 @@
           <h3><span class="fa fa-user"></span> Account information</h3>
              <% if (user.local.username) { %>
                <p>
-               	 <strong>id</strong>: <%= user._id %><br>
+                 <strong>id</strong>: <%= user._id %><br>
                  <strong>username</strong>: <%= user.local.username %><br>
                </p>
                <a href="/unlink/local" class="btn btn-danger">Unlink Account</a>
-             <% } %>
-		<hr>
-                <h3><span class="fa fa-lock"></span> SSH-KEY</h3>
-                <br>
-		<input id="username" type="text" name="username input" class="form-control disable" placeholder="Enter the name of your computer followed by your username. e.g. :  ubuntupierre"/>
-		<br>
-                <textarea id="ssh" type="text" name="sshinput" class="form-control" rows="6" placeholder="Enter your ssh key here"></textarea>
-                <br>
-                <input id="sshsub"  class="btn btn-info" type="submit" onclick="sendkey()"></input>
+              <% } %>
+              <hr>
+              <h3><span class="fa fa-lock"></span> SSH-KEY</h3>
+              <br>
+              <input id="username" type="text" name="username input" class="form-control disable" placeholder="Enter the name of your computer followed by your username. e.g. :  ubuntupierre"/>
+              <br>
+              <textarea id="ssh" type="text" name="sshinput" class="form-control" rows="6" placeholder="Enter your ssh key here"></textarea>
+              <br>
+              <input id="sshsub"  class="btn btn-info" type="submit" onclick="sendkey()"></input>
             </div>
           </div>
         </div>
@@ -71,7 +71,7 @@
           var name = document.getElementById('username').value;
           if(teststring(mysshkey)&& teststring(name)){
             socket.emit('sshkey',{mysshkey : mysshkey, name : name});
-	    window.setTimeout('location.reload()', 1000);
+            window.setTimeout('location.reload()', 1000);
           }
         }
       </script>

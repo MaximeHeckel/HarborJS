@@ -31,7 +31,7 @@
         <div class="col-lg-6 col-lg-offset-2">
           <div class="text-centered">
               <h3>Register App</h3>
-	      <hr>
+              <hr>
                 <form action="/create" method="post">
                   <div class="form-group">
                     <label>App Name</label>
@@ -42,66 +42,68 @@
                   <input type="text" class="form-control" name="user" value="<%= user.local.username%>"/><br>
                   </div>
                   <button type="submit" class="btn btn-info">Register</button>
-            </form>
-            <br>
-            <h3>Create DB</h3>
-            <hr>
-            <form action="/createdb" method="post">
-              <div class="form-group">
-                <label>DB Name</label>
-                <input id="dbname" class="form-control" type="text" name="name" data-container="body" data-toggle="popover" data-placename="right" data-content="Database name and app name must be the same !"/><br>
+                </form>
+                <br>
+                <h3>Create DB</h3>
+                <hr>
+                <form action="/createdb" method="post">
+                  <div class="form-group">
+                    <label>DB Name</label>
+                    <input id="dbname" class="form-control" type="text" name="name" data-container="body" data-toggle="popover" data-placename="right" data-content="Database name and app name must be the same !"/><br>
+                  </div>
+                  <div class="form-group">
+                    <label>Type</label>
+                    <select id="dbtype" class="form-control" name="type">
+                      <option value="postgresql">PGSQL</option>
+                      <option value="mysql">MySQL</option>
+                      <option value="redis">Redis</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" class="form-control" name="user" value="<%= user.local.username%>"/><br>
+                  </div>
+                  <div class="form-group">
+                    <input id="createdb" class="btn btn-info" type="submit" value="Create DB" onclick="dbCreate()"><br>
+                  </div>
+                </form>
               </div>
-              <div class="form-group">
-	        <label>Type</label>
-                <select id="dbtype" class="form-control" name="type">
-                  <option value="postgresql">PGSQL</option>
-                  <option value="mysql">MySQL</option>
-                  <option value="redis">Redis</option>
-                </select>
-              </div>
-	      <div class="form-group">
-	     	<label>Username</label>
-		<input type="text" class="form-control" name="user" value="<%= user.local.username%>"/><br>
-              </div>
-            <div class="form-group">
-              <input id="createdb" class="btn btn-info" type="submit" value="Create DB" onclick="dbCreate()"><br>
             </div>
-           </form>
           </div>
         </div>
-      </div>
-    </div>
-    <script src="../socket.io/socket.io.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script>
-        var socket = io.connect('/');
-        function testname(mystr){
-	  if(!mystr.match(/[a-z,0-9]/)){
-	    console.log("Error");
-	    return false;
-	  }
-	  return true;
-	}
-	function teststring(mystr){
-          if(mystr.match(/[;|""|'']/)){
-            console.log("Error");
-            return false;
+        <script src="../socket.io/socket.io.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script>
+          var socket = io.connect('/');
+
+          function testname(mystr){
+            if(!mystr.match(/[a-z,0-9]/)){
+              console.log("Error");
+              return false;
+              }
+            return true;
           }
-          return true;
-        }
-   
-	function dbCreate(){
-          var dbName = document.getElementById('dbname').value;
-          var dbType = document.getElementById('dbtype').value;
-          if(teststring(dbName)){
-            socket.emit('dbCreate', {name: dbName, type: dbType});
-            window.setTimeout('location.reload()', 1000);
+
+          function teststring(mystr){
+            if(mystr.match(/[;|""|'']/)){
+              console.log("Error");
+              return false;
+            }
+            return true;
           }
-	}
-	
-	$('#app').popover();
-	$('#dbname').popover();
-      </script>
-  </body>
+
+          function dbCreate(){
+            var dbName = document.getElementById('dbname').value;
+            var dbType = document.getElementById('dbtype').value;
+            if(teststring(dbName)){
+              socket.emit('dbCreate', {name: dbName, type: dbType});
+              window.setTimeout('location.reload()', 1000);
+            }
+          }
+
+          $('#app').popover();
+          $('#dbname').popover();
+        </script>
+    </body>
 </html>
