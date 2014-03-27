@@ -48,6 +48,9 @@ app.configure(function() {
 // routes ======================================================================
 require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 
+// socket function =============================================================
+
+require('./config/sockets.js')(io, credentials);
 //for api test purposes ========================================================
 function handler(err, res) {
     if (err) throw err;
@@ -55,7 +58,7 @@ function handler(err, res) {
 };
 
 
-//socket functions =============================================================
+/*//socket functions =============================================================
 
 io.sockets.on('connection', function(socket){  
   socket.on('sshkey', function(data){
@@ -83,7 +86,7 @@ io.sockets.on('connection', function(socket){
     var db=data.dbName;
     exec('dokku postgresql:link '+ app +' '+ db +'; dokku mysql:link '+ app +' '+ db +'; dokku redis:link '+ app +' '+ db, credentials).pipe(process.stdout);
   });
-});
+});*/
 
 
 // launch ======================================================================
