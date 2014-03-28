@@ -42,6 +42,13 @@ npm install
 
 ```
 
+Make sure your connection string to the database is right (in `app/config/database.js`).
+
+If you want to seed the database, type:
+
+```
+node seed.js
+```
 
 Launch the server with : 
 
