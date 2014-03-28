@@ -1,7 +1,9 @@
 // load all the things we need
 var LocalStrategy = require('passport-local').Strategy;
+var OAuth2Strategy = require('passport-oauth2').Strategy;
 // load up the user model
 var User = require('../app/models/user');
+var request = require("request");
 
 module.exports = function(passport) {
 
@@ -111,4 +113,34 @@ module.exports = function(passport) {
         });
 
     }));
+
+    //Oauth
+    OAuth2Strategy.prototype.userProfile = function(token, done) {
+      request({ url: "http://api.iiens.eu/users/self?access_token=" + token }, function(err, response, me) {
+        if(err) {
+          console.log("Error while retrieving personal information: " + err);
+        }
+        else {
+          var me = JSON.parse(me);
+          done(err, me);
+        }
+      });
+    }
+
+    passport.use(new OAuth2Strategy({
+      authorizationURL: "http://www.iiens.eu/oauth/authorize",
+      tokenURL: "http://www.iiens.eu/oauth/token",
+      clientID: process.env.CLIENT_ID,
+      clientSecret: process.env.CLIENT_SECRET,
+      callbackURL: "/auth",
+    } ,
+    function(accessToken, refreshToken, profile, done) {
+      console.log(profile);
+      User.findOne({"local.username": profile.username}, function (err, user) {
+        console.log(user);
+        return done(err, user);
+      });
+    }));
+
+
 };
