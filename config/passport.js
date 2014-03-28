@@ -137,7 +137,6 @@ module.exports = function(passport) {
     function(accessToken, refreshToken, profile, done) {
       console.log(profile);
       User.findOne({"local.username": profile.username}, function (err, user) {
-        console.log(user);
         return done(err, user);
       });
     }));
