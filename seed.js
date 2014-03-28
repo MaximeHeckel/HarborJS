@@ -24,6 +24,10 @@ user = users[2]= new User();
 user.local.username = "titi";
 user.local.password = user.generateHash("titi");
 
+user = users[3] = new User();
+user.local.username = "gaultier2012";
+user.local.password = user.generateHash("gaultier2012");
+
 User.create(users, function(err){
   if(err){
     console.warn("Error when saving users: " + err);
