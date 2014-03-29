@@ -1,16 +1,17 @@
 {
   "name": "HarborJS",
   "main": "server.js",
-  "dependencies" : {
-    "express" : "latest", 			
-    "ejs" : "latest", 				
-    "mongoose" : "~3.8.1", 			
-    "passport" : "~0.1.17", 		
-    "passport-local" : "~0.1.6", 	
-    "connect-flash" : "~0.1.1", 	
-    "bcrypt-nodejs" : "latest",
-    "ssh-exec" : "latest",
-    "socket.io" : "latest",
-    "docker.io" : "latest"
+  "dependencies": {
+    "express": "latest",
+    "ejs": "latest",
+    "mongoose": "~3.8.1",
+    "passport": "~0.1.17",
+    "passport-local": "~0.1.6",
+    "connect-flash": "~0.1.1",
+    "bcrypt-nodejs": "latest",
+    "ssh-exec": "latest",
+    "socket.io": "latest",
+    "docker.io": "latest",
+    "request": "~2.34.0"
   }
 }

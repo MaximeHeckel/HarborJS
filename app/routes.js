@@ -110,6 +110,18 @@ module.exports = function(app, passport) {
       res.redirect('/');
     });
   });
+
+  //Oauth
+  app.get('/oauth',
+    passport.authenticate('oauth2'));
+
+  app.get('/auth',
+    passport.authenticate('oauth2', { failureRedirect: '/login' }),
+    function(req, res) {
+      // Successful authentication, redirect home.
+      res.redirect('/profile');
+    });
+
 };
 
 // route middleware to ensure user is logged in
