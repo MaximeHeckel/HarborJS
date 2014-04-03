@@ -42,6 +42,8 @@ npm install
 
 ```
 
+Make sure your connection string to the database is right (in `app/config/database.js`).
+
 
 Launch the server with : 
 
