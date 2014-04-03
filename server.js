@@ -16,10 +16,10 @@ var io       = require('socket.io').listen(server);
 var docker   = require('docker.io')({ socketPath:'/var/run/docker.sock'});
 
 
+
 //config files ================================================================
 var configDB = require('./config/database.js');
 var credentials = JSON.parse(fs.readFileSync('credentials.json'));
-
 
 // configuration ===============================================================
 mongoose.connect(configDB.url); // connect to our database

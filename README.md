@@ -28,9 +28,9 @@ git clone git@github.com:MaximeHeckel/HarborJS.git
 
 Before launching the serveur you will need to do some setup on your machine.
 
-1. Ensure that you have password authentication activated into your ssh config
+1. Add your public key to ~/.ssh/authorized_key of your root and <code>sudo service ssh restart</code>
 
-2. Fill the <code>credentials.json</code> file with your root user, password and host. ( basically you just have to put the root password as you will run the server locally)
+2. Fill the <code>credentials.json</code> file with your root user and host. ( nothing needs to be change here as you will run the server locally )
 
 3. Fill the <code>./config/database.js</code> file with your database
 
@@ -53,6 +53,10 @@ sudo node server.js
 
 
 HarborJS has been build to provide user sessions and web interface for managing apps and databases for dokku.
+
+####0.1.2
+
+- Security :  No need of root password anymore
 
 ####0.1.0
 
