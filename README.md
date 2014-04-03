@@ -32,7 +32,7 @@ Before launching the serveur you will need to do some setup on your machine.
 
 2. Fill the <code>credentials.json</code> file with your root user and host. ( nothing needs to be change here as you will run the server locally )
 
-3. Fill the <code>./config/database.js</code> file with your database
+3. Fill the <code>./config/database.js</code> file with your MongoDB database address
 
 
 Then run inside the HarborJS repository
