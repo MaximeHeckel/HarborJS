@@ -22,7 +22,7 @@ function handler(err, res) {
     console.log("data returned from Docker as JS object: ", res);
 }
 
-docker.containers.attach('6c4b9f512bdf', {logs: true, stream: true, stdout: true, stderr: false, tty: false}, function(err, stream){
+docker.containers.attach('a385766df550', {logs: true, stream: true, stdout: true, stderr: false, tty: false}, function(err, stream){
   stream.pipe(process.stdout);
 });
 
