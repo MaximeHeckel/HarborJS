@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>HarborJS</title>
+    <title>Dashboard Ares-PaaS</title>
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="css/main.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
@@ -16,12 +16,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="">HARBORJS</a>
+          <a class="navbar-brand" href="">Ares-PaaS</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right cl-effect-13">
             <li><a href="/dashboard">Dashboard</a></li>
-            <li><a href="/profile">Account</a></li>
+            <li><a href="/profile">Compte</a></li>
             <li><a href="/logout">Logout</a></li>
           </ul>
         </div><!--/.nav-collapse -->
@@ -31,19 +31,19 @@
       <div class="row mt">
         <div class="col-lg-8 col-lg-offset-2">
           <div class="text-center">
-           <h2>Your Apps</h2>
+           <h2>Vos applications</h2>
           </div>
           <hr>
           <form action="/new">
-            <button type="submit" class="btn btn-info"><span class="fa fa-plus"></span> Create new app/db</button>
+            <button type="submit" class="btn btn-info"><span class="fa fa-plus"></span> Créer nouvelle app/base de données</button>
           </form>
           <br>
           <div class="panel panel-default">
             <table class="table">
                   <thead>
                     <tr>
-                      <th>Name</th>
-                      <th>State</th>
+                      <th>Nom</th>
+                      <th>État</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -60,7 +60,7 @@
                             </td>
                             <td>
                               <form action="/destroy/<%= app._id %>">
-                                <input type="submit" class="btn btn-danger" value="Delete" name="<%=app.name.substring(app.name.indexOf('/')+1).replace(':latest','')%>" id="<%=containers[i].Id%>" onclick="deleteContainer(this)"></input>
+                                <input type="submit" class="btn btn-danger" value="Supprimer" name="<%=app.name.substring(app.name.indexOf('/')+1).replace(':latest','')%>" id="<%=containers[i].Id%>" onclick="deleteContainer(this)"></input>
                               </form>
                               </td>
                             <%}%>
@@ -73,20 +73,20 @@
               </div>
               <br>
               <div class="text-center">
-                <h3>Link DB-App</h3>
+                <h3>Connecter app - base de données</h3>
               </div>
               <hr>
               <form>
                 <div class="form-group">
-                  <label>DB Name</label>
+                  <label>Nom de la base de données</label>
                   <input type="text" id="linkdb" class="form-control">
                 </div>
                 <div class="form-group">
-                  <label>App Name</label>
+                  <label>Nom de l'application</label>
                   <input type="text" id="linkapp" class="form-control">
                 </div>
                 <div class="form-group">
-                  <button type="submit" class="btn btn-info" onclick="dbLink()"><span class="fa fa-link"></span> Link DB-App</button>
+                  <button type="submit" class="btn btn-info" onclick="dbLink()"><span class="fa fa-link"></span>Connecter</button>
                 </div>
              </form>
             </div>

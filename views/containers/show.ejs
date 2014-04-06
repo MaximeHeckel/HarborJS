@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>HarborJS</title>
+    <title>Dashboard Ares-PaaS</title>
     <link href="../css/bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="../css/main.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
@@ -16,12 +16,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="">HARBORJS</a>
+          <a class="navbar-brand" href="">Ares-PaaS</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right cl-effect-13">
             <li><a href="/dashboard">Dashboard</a></li>
-            <li><a href="/profile">Account</a></li>
+            <li><a href="/profile">Compte</a></li>
             <li><a href="/logout">Logout</a></li>
           </ul>
         </div><!--/.nav-collapse -->
@@ -36,20 +36,20 @@
           <hr/>
           <br/>
           <div id="detail">
-            <p>Created: <%=container.Created%></p>
-            <p>Running: <%=container.State.Running%></p>
-            <p>Command: <%=container.Path%></p>
+            <p>Créée: <%=container.Created%></p>
+            <p>État: <%=container.State.Running%></p>
+            <p>Commande: <%=container.Path%></p>
             <p>Arguments: <%=container.Args[0]%></p>
           </div>
           <br>
           <hr>
-          <h4><span class="fa fa-terminal"></span> Send a command</h4>
+          <h4><span class="fa fa-terminal"></span> Envoyer une commande</h4>
           <input id ="command" type="text" class="form-control"/><br>
-          <button id="<%=name%>"class="btn btn-info" onclick="sendcmd(this)">Send</button>
+          <button id="<%=name%>"class="btn btn-info" onclick="sendcmd(this)">Envoyer</button>
           <br>
           <hr>
-          <h4>Your app is running on :</h4>
-          <a href="http://<%=name%>.yourhostname">http://<%=name%>.yourhostname</a>
+          <h4>Votre application est accessible à l'adresse suivante :</h4>
+          <a href="http://<%=name%>.ares-paas.eu">http://<%=name%>.ares-paas.eu</a>
         </div>
       </div>
     </div>

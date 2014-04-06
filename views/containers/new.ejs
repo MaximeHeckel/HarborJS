@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>HarborJS</title>
+    <title>Dashboard Ares-PaaS</title>
     <link href="../css/bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="../css/main.css" rel="stylesheet" type="text/css" />  
   </head>
@@ -15,12 +15,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="">HARBORJS</a>
+          <a class="navbar-brand" href="">Ares-PaaS</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right cl-effect-13">
             <li><a href="/dashboard">Dashboard</a></li>
-            <li><a href="/profile">Account</a></li>
+            <li><a href="/profile">Compte</a></li>
             <li><a href="/logout">Logout</a></li>
           </ul>
         </div><!--/.nav-collapse -->
@@ -30,26 +30,26 @@
       <div class="row mt">
         <div class="col-lg-6 col-lg-offset-2">
           <div class="text-centered">
-              <h3>Register App</h3>
+              <h3>Enregistrer application</h3>
               <hr>
                 <form action="/create" method="post">
                   <div class="form-group">
-                    <label>App Name</label>
-                      <input id="app" type="text" class="form-control" name="name" data-container="body" data-toggle="popover" data-placename="right" data-content="After registering your app, commit your repository, add the server's remote with : git remote add dokku@hostname:appname and then git push your work on that remote."/><br>
+                    <label>Nom de l'application</label>
+                      <input id="app" type="text" class="form-control" name="name" data-container="body" data-toggle="popover" data-placename="right" data-content="Après avoir enregistré votre application, faites un commit de votre travail et ajoutez le remote du PaaS avec : git remote add dokku@ares-paas.eu:nomdevotreapp puis faites un git push ares master pour déployer votre application "/><br>
                   </div>
                   <div class="form-group">
-                  <label>Username</label>
+                  <label>Utilisateur</label>
                   <input type="text" class="form-control" name="user" value="<%= user.local.username%>"/><br>
                   </div>
-                  <button type="submit" class="btn btn-info">Register</button>
+                  <button type="submit" class="btn btn-info">Enregistrer</button>
                 </form>
                 <br>
-                <h3>Create DB</h3>
+                <h3>Créer base de données</h3>
                 <hr>
                 <form action="/createdb" method="post">
                   <div class="form-group">
-                    <label>DB Name</label>
-                    <input id="dbname" class="form-control" type="text" name="name" data-container="body" data-toggle="popover" data-placename="right" data-content="Database name and app name must be the same !"/><br>
+                    <label>Nom de la base de données</label>
+                    <input id="dbname" class="form-control" type="text" name="name" data-container="body" data-toggle="popover" data-placename="right" data-content="ATTENTION : Votre base de données et votre application doivent avoir le même nom"/><br>
                   </div>
                   <div class="form-group">
                     <label>Type</label>
@@ -60,11 +60,11 @@
                     </select>
                   </div>
                   <div class="form-group">
-                    <label>Username</label>
+                    <label>Utilisateur</label>
                     <input type="text" class="form-control" name="user" value="<%= user.local.username%>"/><br>
                   </div>
                   <div class="form-group">
-                    <input id="createdb" class="btn btn-info" type="submit" value="Create DB" onclick="dbCreate()"><br>
+                    <input id="createdb" class="btn btn-info" type="submit" value="Créer base de données" onclick="dbCreate()"><br>
                   </div>
                 </form>
               </div>
