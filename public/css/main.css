@@ -1,11 +1,9 @@
-body.home { 
+/*body.home { 
   background: url(../img/back.jpg) no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
   padding-top: 200px;
-}
+}*/
 
-.btn-warning:hover, .btn-warning:focus, .btn-warning:active, .btn-warning.active, .open .dropdown-toggle.btn-warning{
-}
