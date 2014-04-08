@@ -35,7 +35,7 @@
                 <form id="app_form" action="/create" method="post">
                   <div class="form-group">
                     <label>Nom de l'application</label>
-                      <input id="app" type="text" class="form-control" name="name" data-container="body" data-toggle="popover" data-placename="right" data-content="Après avoir enregistré votre application, faites un commit de votre travail et ajoutez le remote du PaaS avec : git remote add dokku@ares-paas.eu:nomdevotreapp puis faites un git push ares master pour déployer votre application "/><br>
+                      <input id="app" type="text" class="form-control" name="name" data-container="body" data-toggle="popover" data-placename="right" /><br>
                   </div>
                   <div class="form-group">
                   <label>Utilisateur</label>
@@ -75,6 +75,12 @@
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script src="../js/bootstrap.min.js"></script>
         <script>
+          var app_name_field = document.getElementById('app');
+          var app_default_message = "Après avoir enregistré votre application, faites un commit de votre travail et ajoutez le remote du PaaS avec : git remote add dokku@ares-paas.eu:nomdevotreapp puis faites un git push ares master pour déployer votre application ";
+          //document.addEventListener('DOMContentLoaded', function(){
+          //  app_name_field.setAttribute('data-content', app_default_message);
+          //});
+
           var socket = io.connect('/');
 
           function testname(mystr){
@@ -101,39 +107,47 @@
               window.setTimeout('location.reload()', 1000);
             }
           }
-          var app_name_field = document.getElementById('app');
           app_name_field.addEventListener("keyup", app_is_valid)
 
           function check_app_exists(app_name, callback){
-            var app_exists;
             $.getJSON('/api/app_name_exists/' + encodeURIComponent(app_name), callback);
           }
 
           function app_is_valid() {
             var app_name = app_name_field.value;
-            var message = '';
 
             if(!app_name){
-              message = "Le nom de l'application ne doit pas être vide";
-              console.log(message);
+              $('#app').popover('hide');
+              app_name_field.setAttribute('data-content', app_default_message);
+              $('#app').popover('show');
+              document.getElementById('app_submit').disabled = true;
             }
             else if( ! testname(app_name)){
-              message = "Le nom de l'application doit être alphanumérique";
-              console.log(message);
+              $('#app').popover('hide');
+              app_name_field.setAttribute('data-content', "Le nom de l'application doit être alphanumérique");
+              $('#app').popover('show');
+              document.getElementById('app_submit').disabled = true;
             }
             else {
-              console.log("Le nom est valide. Voyons si une application de ce nom existe déjà...")
+              //console.log("Le nom est valide. Voyons si une application de ce nom existe déjà...")
               check_app_exists(app_name, function(app_exists){
                 if(app_exists) {
-                  message = "Ce nom existe déjà";
-                  console.log(message);
+                  $('#app').popover('hide');
+                  app_name_field.setAttribute('data-content', "Ce nom existe déjà");
+                  $('#app').popover('show');
                 }
+                else {
+                  $('#app').popover('hide');
+                  app_name_field.setAttribute('data-content', "Ce nom est valide");
+                  $('#app').popover('show');
+                }
+
                 document.getElementById('app_submit').disabled = app_exists;
               });
             }
           }
 
-          $('#app').popover();
+          $('#app').popover({trigger: 'hover', content: app_default_message});
           $('#dbname').popover();
         </script>
     </body>
