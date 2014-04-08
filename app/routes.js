@@ -49,7 +49,6 @@ module.exports = function(app, passport) {
 
 // app routes ===============================================================
   app.get('/new', function(req,res){
-    var apps = App.find();
     res.render('containers/new.ejs', {user : req.user, apps : apps});
   });
 
