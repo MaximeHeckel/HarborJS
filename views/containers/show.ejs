@@ -65,7 +65,7 @@
       socket.on('logs',function(data){
 	  var log = data.data;
 	  log=log.replace(/\n/g, '<br>');
-          $('<p>'+log+'</p>').prepend('#logs');
+          $('<p>'+log+'</p>').appendTo('#logs');
 	});
       
       socket.emit('thisContainerId',window.location.pathname.substring(12));    
