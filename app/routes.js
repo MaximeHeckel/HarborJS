@@ -49,7 +49,18 @@ module.exports = function(app, passport) {
 
 // app routes ===============================================================
   app.get('/new', function(req,res){
-    res.render('containers/new.ejs', {user : req.user});
+    var apps = App.find();
+    res.render('containers/new.ejs', {user : req.user, apps : apps});
+  });
+
+  app.get('/api/app_name_exists/:name', function(req, res){
+    var app_exists;
+    var app_name = decodeURIComponent(req.params.name);
+
+    App.findOne({name: app_name}, function(err, app){
+      app_exists = (app) ? true : false;
+      res.json(app_exists);
+    })
   });
 
   app.post( '/create', config.create );

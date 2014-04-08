@@ -32,7 +32,7 @@
           <div class="text-centered">
               <h3>Enregistrer application</h3>
               <hr>
-                <form action="/create" method="post">
+                <form id="app_form" action="/create" method="post">
                   <div class="form-group">
                     <label>Nom de l'application</label>
                       <input id="app" type="text" class="form-control" name="name" data-container="body" data-toggle="popover" data-placename="right" data-content="Après avoir enregistré votre application, faites un commit de votre travail et ajoutez le remote du PaaS avec : git remote add dokku@ares-paas.eu:nomdevotreapp puis faites un git push ares master pour déployer votre application "/><br>
@@ -41,12 +41,12 @@
                   <label>Utilisateur</label>
                   <input type="text" class="form-control" name="user" value="<%= user.local.username%>"/><br>
                   </div>
-                  <button type="submit" class="btn btn-info">Enregistrer</button>
+                  <button id="app_submit" type="submit" class="btn btn-info" disabled="true">Enregistrer</button>
                 </form>
                 <br>
                 <h3>Créer base de données</h3>
                 <hr>
-                <form action="/createdb" method="post">
+                <form id="db_form" action="/createdb" method="post">
                   <div class="form-group">
                     <label>Nom de la base de données</label>
                     <input id="dbname" class="form-control" type="text" name="name" data-container="body" data-toggle="popover" data-placename="right" data-content="ATTENTION : Votre base de données et votre application doivent avoir le même nom"/><br>
@@ -78,7 +78,7 @@
           var socket = io.connect('/');
 
           function testname(mystr){
-            if(!mystr.match(/[a-z,0-9]/)){
+            if(!mystr.match(/^[a-zA-Z0-9]+$/)){
               console.log("Error");
               return false;
               }
@@ -99,6 +99,37 @@
             if(teststring(dbName)){
               socket.emit('dbCreate', {name: dbName, type: dbType});
               window.setTimeout('location.reload()', 1000);
+            }
+          }
+          var app_name_field = document.getElementById('app');
+          app_name_field.addEventListener("keyup", app_is_valid)
+
+          function check_app_exists(app_name, callback){
+            var app_exists;
+            $.getJSON('/api/app_name_exists/' + encodeURIComponent(app_name), callback);
+          }
+
+          function app_is_valid() {
+            var app_name = app_name_field.value;
+            var message = '';
+
+            if(!app_name){
+              message = "Le nom de l'application ne doit pas être vide";
+              console.log(message);
+            }
+            else if( ! testname(app_name)){
+              message = "Le nom de l'application doit être alphanumérique";
+              console.log(message);
+            }
+            else {
+              console.log("Le nom est valide. Voyons si une application de ce nom existe déjà...")
+              check_app_exists(app_name, function(app_exists){
+                if(app_exists) {
+                  message = "Ce nom existe déjà";
+                  console.log(message);
+                }
+                document.getElementById('app_submit').disabled = app_exists;
+              });
             }
           }
 
