@@ -108,12 +108,11 @@ If you want to create a database just click on the **Create new app/db** button,
 
 ##TODO:
 
+- Config File : JSON with hostname, plugin list, etc.
 
-- Registering new app : check if the name of the app already exists
+- Registering new app : check if the name of the app already exists ( almost done )
 
 - Error handling : when creating apps or databases
-
-- Stream logs to view : look [here](http://stackoverflow.com/questions/22594313/docker-api-show-container-logs-in-a-webpage)
 
 - Vagrantfile : For fast deployment
 
