@@ -49,7 +49,7 @@ module.exports = function(app, passport) {
 
 // app routes ===============================================================
   app.get('/new', function(req,res){
-    res.render('containers/new.ejs', {user : req.user, apps : apps});
+    res.render('containers/new.ejs', {user : req.user});
   });
 
   app.get('/api/app_name_exists/:name', function(req, res){
