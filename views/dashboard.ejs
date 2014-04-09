@@ -39,6 +39,9 @@
           </form>
           <br>
           <div class="panel panel-default">
+            <% if( ! containers || ! containers.length) {%>
+              Pas de containers pour le moment.
+            <% } else { %>
             <table class="table">
                   <thead>
                     <tr>
@@ -47,29 +50,30 @@
                       <th>Action</th>
                     </tr>
                   </thead>
-                  <%for(var i=0; i< containers.length; i++){%>
-                    <% apps.forEach(function(app){%>
-                      <tbody>
-                        <tr>
-                          <%if(app.user == user.local.username && app.name == containers[i].Image){%>
-                            <td>
-                              <a href="/containers/<%=containers[i].Id%>" id="<%=containers[i].Id%>"><%=containers[i].Image%></a>
-                            </td>
-                            <td>
-                              <%=containers[i].Status%>
-                            </td>
-                            <td>
-                              <form action="/destroy/<%= app._id %>">
-                                <input type="submit" class="btn btn-danger" value="Supprimer" name="<%=app.name.substring(app.name.indexOf('/')+1).replace(':latest','')%>" id="<%=containers[i].Id%>" onclick="deleteContainer(this)"></input>
-                              </form>
+                    <%for(var i=0; i< containers.length; i++){%>
+                      <% apps.forEach(function(app){%>
+                        <tbody>
+                          <tr>
+                            <%if(app.user == user.local.username && app.name == containers[i].Image){%>
+                              <td>
+                                <a href="/containers/<%=containers[i].Id%>" id="<%=containers[i].Id%>"><%=containers[i].Image%></a>
                               </td>
-                            <%}%>
-                          </tr>
-                        </tbody>
-                      <%})%>
-                    <%}%>
+                              <td>
+                                <%=containers[i].Status%>
+                              </td>
+                              <td>
+                                <form action="/destroy/<%= app._id %>">
+                                  <input type="submit" class="btn btn-danger" value="Supprimer" name="<%=app.name.substring(app.name.indexOf('/')+1).replace(':latest','')%>" id="<%=containers[i].Id%>" onclick="deleteContainer(this)"></input>
+                                </form>
+                                </td>
+                              <%}%>
+                            </tr>
+                          </tbody>
+                        <%})%>
+                      <%}%>
                   </div>
                 </table>
+              <% } %>
               </div>
               <br>
               <div class="text-center">
