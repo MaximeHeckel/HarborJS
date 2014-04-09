@@ -106,6 +106,8 @@
 
           app_name_field.addEventListener("keyup", app_is_valid)
 
+          //Ajax call to a service to check if the name is already in use
+          //Responds with a JSON encoded boolean
           function check_app_exists(app_name, callback){
             $.getJSON('/api/app_name_exists/' + encodeURIComponent(app_name), callback);
           }
@@ -124,7 +126,7 @@
               document.getElementById('app_submit').disabled = true;
             }
             else {
-              //'Taken name' state: alraedy existent name
+              //'Taken name' state: already existent name
               check_app_exists(app_name, function(app_exists){
                 if(app_exists) {
                   popover_message('app', "Ce nom existe déjà");
