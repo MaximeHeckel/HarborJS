@@ -49,10 +49,10 @@ module.exports = function(app, passport) {
 
 // app routes ===============================================================
   app.get('/new', function(req,res){
-    res.render('containers/new.ejs', {user : req.user, apps : apps});
+    res.render('containers/new.ejs', isLoggedIn, {user : req.users});
   });
 
-  app.get('/api/app_name_exists/:name', function(req, res){
+  app.get('/api/app_name_exists/:name', isLoggedIn, function(req, res){
     var app_exists;
     var app_name = decodeURIComponent(req.params.name);
 
@@ -62,11 +62,11 @@ module.exports = function(app, passport) {
     })
   });
 
-  app.post( '/create', config.create );
+  app.post( '/create', isLoggedIn, config.create );
   
-  app.post('/createdb', config.createdb);
+  app.post('/createdb', isLoggedIn, config.createdb);
 
-  app.get('/destroy/:id', config.destroy);
+  app.get('/destroy/:id', isLoggedIn, config.destroy);
 
   //Oauth
   app.get('/oauth',
