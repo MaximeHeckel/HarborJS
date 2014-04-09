@@ -56,7 +56,7 @@ HarborJS has been build to provide user sessions and web interface for managing 
 
 ####0.2
 
-- Container have logs
+- Containers have logs
 
 - Check if app or db already exists
 
