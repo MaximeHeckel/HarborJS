@@ -12,6 +12,7 @@
     "ssh-exec": "latest",
     "socket.io": "latest",
     "docker.io": "latest",
-    "request": "~2.34.0"
+    "request": "~2.34.0",
+    "passport-oauth2": "latest"
   }
 }
