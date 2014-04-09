@@ -56,7 +56,7 @@ module.exports = function(app, passport) {
     var app_exists;
     var app_name = decodeURIComponent(req.params.name);
 
-    App.findOne({name: app_name}, function(err, app){
+    App.findOne({name: "app/" + app_name + ":latest"}, function(err, app){
       app_exists = (app) ? true : false;
       res.json(app_exists);
     })
