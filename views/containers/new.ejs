@@ -77,15 +77,11 @@
         <script>
           var app_name_field = document.getElementById('app');
           var app_default_message = "Après avoir enregistré votre application, faites un commit de votre travail et ajoutez le remote du PaaS avec : git remote add dokku@ares-paas.eu:nomdevotreapp puis faites un git push ares master pour déployer votre application ";
-          //document.addEventListener('DOMContentLoaded', function(){
-          //  app_name_field.setAttribute('data-content', app_default_message);
-          //});
 
           var socket = io.connect('/');
 
           function testname(mystr){
             if(!mystr.match(/^[a-zA-Z0-9]+$/)){
-              console.log("Error");
               return false;
               }
             return true;
@@ -107,6 +103,7 @@
               window.setTimeout('location.reload()', 1000);
             }
           }
+
           app_name_field.addEventListener("keyup", app_is_valid)
 
           function check_app_exists(app_name, callback){
@@ -117,34 +114,33 @@
             var app_name = app_name_field.value;
 
             if(!app_name){
-              $('#app').popover('hide');
-              app_name_field.setAttribute('data-content', app_default_message);
-              $('#app').popover('show');
+              //'Default' state : empty name
+              popover_message('app', app_default_message);
               document.getElementById('app_submit').disabled = true;
             }
             else if( ! testname(app_name)){
-              $('#app').popover('hide');
-              app_name_field.setAttribute('data-content', "Le nom de l'application doit être alphanumérique");
-              $('#app').popover('show');
+              //'Incorrect name' state : non alphanumeric name
+              popover_message('app', "Le nom de l'application doit être alphanumérique");
               document.getElementById('app_submit').disabled = true;
             }
             else {
-              //console.log("Le nom est valide. Voyons si une application de ce nom existe déjà...")
+              //'Taken name' state: alraedy existent name
               check_app_exists(app_name, function(app_exists){
                 if(app_exists) {
-                  $('#app').popover('hide');
-                  app_name_field.setAttribute('data-content', "Ce nom existe déjà");
-                  $('#app').popover('show');
+                  popover_message('app', "Ce nom existe déjà");
                 }
                 else {
-                  $('#app').popover('hide');
-                  app_name_field.setAttribute('data-content', "Ce nom est valide");
-                  $('#app').popover('show');
+                  popover_message('app', "Ce nom est valide");
                 }
-
                 document.getElementById('app_submit').disabled = app_exists;
               });
             }
+          }
+
+          function popover_message(id, message) {
+            $('#' + id).popover('hide');
+            document.getElementById(id).setAttribute('data-content', message);
+            $('#' + id).popover('show');
           }
 
           $('#app').popover({trigger: 'hover', content: app_default_message});
