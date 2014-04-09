@@ -54,6 +54,12 @@ sudo node server.js
 
 HarborJS has been build to provide user sessions and web interface for managing apps and databases for dokku.
 
+####0.2
+
+- Container have logs
+
+- Check if app or db already exists
+
 ####0.1.2
 
 - Security :  No need of root password anymore
