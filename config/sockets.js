@@ -15,6 +15,7 @@ io.sockets.on('connection', function(socket){
   socket.on('dbCreate',function(data){
     var name=data.name;
     var type=data.type;
+    console.log(type +' ' + name);
     exec('dokku '+type+':create '+name, credentials).pipe(process.stdout);
   });
 
