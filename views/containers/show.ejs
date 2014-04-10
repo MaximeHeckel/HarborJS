@@ -29,7 +29,7 @@
     </div>
     <div class="container pt">
       <div class="row mt">
-        <div class="col-lg-6 col-lg-offset-2">
+        <div class="col-lg-8 col-lg-offset-2">
           <div id="title">
             <h2><%=name%></h2>
           </div>
@@ -42,6 +42,9 @@
             <p>Arguments: <%=container.Args[0]%></p>
           </div>
           <br>
+	  <pre>
+	    <code id="logs"></code>
+	  </pre>
           <hr>
           <h4><span class="fa fa-terminal"></span> Envoyer une commande</h4>
           <input id ="command" type="text" class="form-control"/><br>
@@ -60,8 +63,12 @@
       var socket = io.connect('/');
 
       socket.on('logs',function(data){
-        console.log(data);
-      });
+	  var log = data.data;
+	  log=log.replace(/\n/g, '<br>');
+          $('<p>'+log+'</p>').appendTo('#logs');
+	});
+      
+      socket.emit('thisContainerId',window.location.pathname.substring(12));    
 
       function teststring(mystr){
           if(mystr.match(/[;|""|'']/)){
