@@ -42,7 +42,7 @@
             <p>Arguments: <%=container.Args[0]%></p>
           </div>
           <br>
-	  <pre>
+	  <pre id="termlog" style="overflow:scroll; height:300px;">
 	    <code id="logs"></code>
 	  </pre>
           <hr>
@@ -66,6 +66,7 @@
 	  var log = data.data;
 	  log=log.replace(/\n/g, '<br>');
           $('<p>'+log+'</p>').appendTo('#logs');
+	  $("#termlog").scrollTop($("#termlog")[0].scrollHeight);
 	});
       
       socket.emit('thisContainerId',window.location.pathname.substring(12));    
