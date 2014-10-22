@@ -1,4 +1,4 @@
 node_modules
-database.js
-credential.json
+config/database.js
+credentials.json
 .codio
