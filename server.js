@@ -13,13 +13,14 @@ var path     = require('path');
 var flash    = require('connect-flash');
 var server   = http.createServer(app);
 var io       = require('socket.io').listen(server);
-var docker   = require('docker.io')({ socketPath:'/var/run/docker.sock'});
-
-
 
 //config files ================================================================
 var configDB = require('./config/database.js');
 var credentials = JSON.parse(fs.readFileSync('credentials.json'));
+
+var docker   = require('docker.io')({ socketPath: false, host: 'http://'+credentials.host, port: '4243'});
+//docker.images.list(options, function(err, res) { if (err) throw err; console.log("data returned from Docker as JS object: ", res); }); 
+
 
 // configuration ===============================================================
 mongoose.connect(configDB.url); // connect to our database
