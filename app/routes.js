@@ -18,9 +18,9 @@ module.exports = function(app, passport) {
   });
 
   app.get('/dashboard', isLoggedIn,  function (req,res) {
-    docker.containers.list(function(err,cont){
+	docker.containers.list(function(err,cont){
      App.find(function (warn, apps, count){
-       res.render('dashboard.ejs',{apps: apps, containers: cont, user : req.user});
+       res.render('dashboard.ejs',{apps: apps, containers: [], user : req.user});
     });
    });
   });
