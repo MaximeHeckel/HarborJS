@@ -44,7 +44,7 @@ app.configure(function() {
 });
 
 // routes ======================================================================
-require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
+require('./app/routes.js')(app, passport, docker); // load our routes and pass in our app and fully configured passport
 
 // socket function =============================================================
 require('./config/sockets.js')(io, credentials, docker);

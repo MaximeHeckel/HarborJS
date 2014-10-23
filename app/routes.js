@@ -1,7 +1,7 @@
-var docker = require('docker.io')({ socketPath:'/var/run/docker.sock'});
+//var docker = require('docker.io')({ socketPath:'/var/run/docker.sock'});
 var config = require('../config/application.js');
 var App    = require('../app/models/apps');
-module.exports = function(app, passport) {
+module.exports = function(app, passport, docker) {
 
 // normal routes ===============================================================
 
@@ -20,7 +20,8 @@ module.exports = function(app, passport) {
   app.get('/dashboard', isLoggedIn,  function (req,res) {
 	docker.containers.list(function(err,cont){
      App.find(function (warn, apps, count){
-       res.render('dashboard.ejs',{apps: apps, containers: [], user : req.user});
+		 debugger;
+       res.render('dashboard.ejs',{apps: apps, containers: cont, user : req.user});
     });
    });
   });
@@ -32,6 +33,7 @@ module.exports = function(app, passport) {
   app.get('/containers/:id', isLoggedIn,function(req,res){
     console.log('INSPECT CONTAINER WITH ID '+req.params.id);
     docker.containers.inspect(req.params.id,function(err,requ){
+      if (err) throw err;
       var reqname = requ.Config.Image;
       var name = reqname.replace('app/','').replace('postgresql/','').replace('mysql/','');
       docker.containers.attach(req.params.id, {stream: true, stdout: true, stderr:false, tty:false}, function(err,stream) {
@@ -114,6 +116,7 @@ module.exports = function(app, passport) {
 
 // route middleware to ensure user is logged in
 function isLoggedIn(req, res, next) {
+	debugger;
   if (req.isAuthenticated())
     return next();
   res.redirect('/');
