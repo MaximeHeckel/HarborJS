@@ -1,4 +1,3 @@
-//var docker = require('docker.io')({ socketPath:'/var/run/docker.sock'});
 var config = require('../config/application.js');
 var App    = require('../app/models/apps');
 module.exports = function(app, passport, docker) {
@@ -20,7 +19,9 @@ module.exports = function(app, passport, docker) {
   app.get('/dashboard', isLoggedIn,  function (req,res) {
 	docker.containers.list(function(err,cont){
      App.find(function (warn, apps, count){
-		 debugger;
+        if(!apps) apps = [];
+        if(!cont) cont = [];
+
        res.render('dashboard.ejs',{apps: apps, containers: cont, user : req.user});
     });
    });
@@ -50,8 +51,8 @@ module.exports = function(app, passport, docker) {
   });
 
 // app routes ===============================================================
-  app.get('/new', function(req,res){
-    res.render('containers/new.ejs',isLoggedIn ,{user : req.user});
+  app.get('/new', isLoggedIn, function(req,res){
+    res.render('containers/new.ejs' ,{user : req.user});
 });
 
   app.post( '/create', config.create );
@@ -116,8 +117,9 @@ module.exports = function(app, passport, docker) {
 
 // route middleware to ensure user is logged in
 function isLoggedIn(req, res, next) {
-	debugger;
-  if (req.isAuthenticated())
+
+  if (req.user){
     return next();
+  }
   res.redirect('/');
 }
