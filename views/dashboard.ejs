@@ -48,6 +48,23 @@
                     </tr>
                   </thead>
                   <%for(var i=0; i< containers.length; i++){%>
+					<% if(user.local.username == "admin"){%>
+						<tbody>
+                        <tr>
+                            <td>
+                              <a href="/containers/<%=containers[i].Id%>" id="<%=containers[i].Id%>"><%=containers[i].Image%></a>
+                            </td>
+                            <td>
+                              <%=containers[i].Status%>
+                            </td>
+                            <td>
+                              <form action="/destroy/<%= containers[i].Id %>">
+                                <input type="submit" class="btn btn-danger" value="Delete" name="<%=containers[i].Image%>" id="<%=containers[i].Id%>" onclick="deleteContainer(this)"></input>
+                              </form>
+                              </td>
+                          </tr>
+                        </tbody>
+					<%}%>
                     <% apps.forEach(function(app){%>
                       <tbody>
                         <tr>
