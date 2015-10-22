@@ -26,7 +26,7 @@ First clone the repository
 git clone git@github.com:MaximeHeckel/HarborJS.git
 ```
 
-Before launching the serveur you will need to do some setup on your machine.
+Before launching the server you will need to do some setup on your machine.
 
 1. Add your public key to ~/.ssh/authorized_key of your root and <code>sudo service ssh restart</code>
 
