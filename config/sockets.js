@@ -12,15 +12,16 @@ function streamToWebsocket(stream, socket){
 
 io.sockets.on('connection', function(socket){
 socket.on('thisContainerId', function(data){
-  docker.containers.attach(data, {stream: true, stderr: true, stdout:true, logs:true}, function(err,attach){
+  var container = docker.getContainer(data);
+  container.attach({stream: true, stdout: true, stderr:true, logs:true}, function(err,attach){
     var out = Writable();
     var err = Writable();
     streamToWebsocket(out, socket);
     streamToWebsocket(err, socket);
-    docker.demuxStream(attach, out, err);
+    container.modem.demuxStream(attach, out, err);
   });
 });
-  
+
   socket.on('sshkey', function(data){
     exec('touch ssh.pub ; echo '+data.mysshkey+' > ssh.pub; cat ~/ssh.pub | sudo sshcommand acl-add dokku '+ data.name, credentials).pipe(process.stdout);
   });
@@ -49,3 +50,4 @@ socket.on('thisContainerId', function(data){
 });
 
 };
+

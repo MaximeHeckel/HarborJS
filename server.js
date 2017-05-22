@@ -23,10 +23,7 @@ var io       = require('socket.io').listen(server);
 var configDB = require('./config/database.js');
 var credentials = require('./credentials.json');
 
-var docker   = require('docker.io')({ 
-  socketPath: false, 
-  host: 'http://'+credentials.host, port: '4243'}); 
-
+var docker   = require('dockerode')({socketPath: '/var/run/docker.sock'});
 
 // configuration ===============================================================
 mongoose.connect(configDB.url); // connect to our database
@@ -47,7 +44,7 @@ app.use(session({
     secret:'iloveharborjsiloveharborjs',
     maxAge: new Date(Date.now() + 3600000),
     store: new MongoStore(
-        {db:configDB.url},
+        {url: configDB.url},
         function(err){
             console.log(err || 'connect-mongodb setup ok');
         })
@@ -67,3 +64,4 @@ require('./config/sockets.js')(io, credentials, docker);
 // launch ======================================================================
 server.listen(port);
 console.log('HarborJS is running on port ' + port);
+

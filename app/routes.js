@@ -17,7 +17,7 @@ module.exports = function(app, passport, docker) {
   });
 
   app.get('/dashboard', isLoggedIn,  function (req,res) {
-	docker.containers.list(function(err,cont){
+	docker.listContainers(function(err,cont){
      App.find(function (warn, apps, count){
         if(!apps) apps = [];
         if(!cont) cont = [];
@@ -33,11 +33,12 @@ module.exports = function(app, passport, docker) {
 
   app.get('/containers/:id', isLoggedIn,function(req,res){
     console.log('INSPECT CONTAINER WITH ID '+req.params.id);
-    docker.containers.inspect(req.params.id,function(err,requ){
+    var container = docker.getContainer(req.params.id);
+    container.inspect(req.params.id,function(err,requ){
       if (err) throw err;
       var reqname = requ.Config.Image;
       var name = reqname.replace('app/','').replace('postgresql/','').replace('mysql/','');
-      docker.containers.attach(req.params.id, {stream: true, stdout: true, stderr:false, tty:false}, function(err,stream) {
+      container.attach({stream: true, stdout: true, stderr:false, tty:false}, function(err,stream) {
 	res.render('containers/show.ejs',{container: requ, name: name, stream: stream});
       });
     });
@@ -52,11 +53,11 @@ module.exports = function(app, passport, docker) {
 
 // app routes ===============================================================
   app.get('/new', isLoggedIn, function(req,res){
-    res.render('containers/new.ejs' ,{user : req.user});
-});
+   res.render('containers/new.ejs' ,{user : req.user});
+  });
 
-  app.post( '/create', config.create );
-  
+  app.post('/create', config.create);
+
   app.post('/createdb', config.createdb);
 
   app.get('/destroy/:id', config.destroy);
@@ -123,3 +124,4 @@ function isLoggedIn(req, res, next) {
   }
   res.redirect('/');
 }
+
