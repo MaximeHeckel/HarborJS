@@ -104,6 +104,6 @@ If you want to create a database just click on the **Create new app/db** button,
 - Documentation : Doc and Tutorials, or even a wiki with step by step guides in order to explain how to deploy all sorts of apps ( with all kinds of databases )
 
 
-## License
+## Licence
 
-See LICENSE, which applies to everything in this repository.
+See LICENCE, which applies to everything in this repository.
