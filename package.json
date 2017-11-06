@@ -1,6 +1,9 @@
 {
   "name": "HarborJS",
   "main": "server.js",
+  "scripts": {
+    "start": "sudo node server.js"
+  },
   "dependencies": {
     "bcrypt-nodejs": "latest",
     "body-parser": "^1.13.0",
