@@ -33,13 +33,12 @@ Before launching the server you will need to do some setup on your machine.
 Then run inside the HarborJS repository:
 ```
 npm install
-
 ```
 
 
 Launch the server with:
 ```
-sudo node server.js
+npm start
 ```
 
 ## Features
