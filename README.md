@@ -1,8 +1,8 @@
-#HarborJS
+# HarborJS
 
 This project aims to provide a full web interface for [dokku](https://github.com/progrium/dokku) and session management.
 
-##Requirements
+## Requirements
 
 In order to run HarborJS you will need :
 
@@ -17,7 +17,7 @@ In order to run HarborJS you will need :
 - A MongoDB database 
 
 
-##Installing and configuring
+## Installing and configuring
 
 
 First clone the repository
@@ -49,22 +49,22 @@ Launch the server with :
 sudo node server.js
 ```
 
-##Features
+## Features
 
 
 HarborJS has been build to provide user sessions and web interface for managing apps and databases for dokku.
 
-####0.2
+#### 0.2
 
 - Containers have logs
 
 - Check if app or db already exists
 
-####0.1.2
+#### 0.1.2
 
 - Security :  No need of root password anymore
 
-####0.1.0
+#### 0.1.0
 
 - Ability to create/delete apps and databases
 
@@ -81,7 +81,7 @@ HarborJS has been build to provide user sessions and web interface for managing 
 - Each apps has its own dedicated page
 
 
-##How to use it
+## How to use it
 
 
 Let's deploy an app with HarborJS
@@ -109,10 +109,10 @@ and push the register button. This action will add a new application into the da
 If you want to create a database just click on the **Create new app/db** button, enter a new name for your database in the database section, choose which type of database you want, hit the **Create DB** button and your done.
 
 
-######Note: 
+###### Note: 
 <strong>HarborJS comes with PostgreSQL, MySQL, and Redis built in. You will need to install the corresponding dokku plugins in order to make them work. In order to add your own database type you need ( at least for the moment ) to it directly into the code of the project</strong> 
 
-##TODO:
+## TODO:
 
 - Config File : JSON with hostname, plugin list, etc.
 
@@ -127,6 +127,6 @@ If you want to create a database just click on the **Create new app/db** button,
 - Documentation : Doc and Tutorials, or even a wiki with step by step guides in order to explain how to deploy all sorts of apps ( with all kinds of databases )
 
 
-##License
+## License
 
 MIT
